@@ -6,6 +6,8 @@ const fs = require('fs');
 const Enmap = require('enmap');
 const client = new Discord.Client();
 require('dotenv-flow').config();
+const mongoose = require("mongoose");
+
 
 const config = {
     token: process.env.TOKEN,
