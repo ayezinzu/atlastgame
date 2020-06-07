@@ -15,9 +15,10 @@ const statsSchema = mongoose.Schema({
 })
 
 const reportSchema = mongoose.Schema({
-  
+
   username: String,
   userid: String,
+  dust: String,
   cardstats: [statsSchema]
 
 });
