@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Addcard = require("../models/addcard.js")
+const Report = require("../models/report.js")
 mongoose.connect('mongodb+srv://admin:admin@cluster0-hlj9n.mongodb.net/atlasdb?retryWrites=true&w=majority',{
   useNewUrlParser: true
 }, function(err){
