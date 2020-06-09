@@ -21,6 +21,8 @@ var vitality = ""
 var endurance = ""
 var leadership = ""
 var intellect = ""
+var series = ""
+var emoji = ""
 
 exports.run = (client,message,args) => {
   var gucci = {
@@ -97,6 +99,24 @@ message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
   message.channel.send("thank you")
 
 }) })
+.then( async seriesmsg => {
+  message.reply("Enter series name")
+
+  await message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
+    series = collected.first().content;
+
+  message.channel.send("thank you")
+
+}) })
+.then( async emojimsg => {
+  message.reply("Enter emoji name")
+
+  await message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
+    emoji = collected.first().content;
+
+  message.channel.send("thank you, btw karuto sucks, so thanks for adopting me <3")
+
+}) })
 
 .then( async secondmsg => {
   message.reply("Amazing, now enter the card type ")
@@ -127,7 +147,9 @@ message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
     element: element,
     vitality: vitality,
     endurance: endurance,
-    intellect: intellect
+    intellect: intellect,
+    series: series,
+    emoji: emoji
 
 
 

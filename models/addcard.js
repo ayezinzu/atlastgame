@@ -19,7 +19,9 @@ const reportSchema = mongoose.Schema({
   leadership: String,
   element: String,
   vitality: String,
-  endurance: String
+  endurance: String,
+  emoji : String,
+  series : String
 });
 
 module.exports = mongoose.model("Addcard", reportSchema);
