@@ -14,16 +14,16 @@ const reportSchema = mongoose.Schema({
   cardname: String,
   cardid: String,
   cardtype: String,
-  cardscore: String,
+  difficulty: Number,
   imgurl: String,
-  strength: Number,
-  leadership: Number,
+  strength: String,
+  leadership: String,
   element: String,
-  vitality: Number,
-  endurance: Number,
-  intellect: Number,
+  vitality: String,
+  endurance: String,
+  intellect: String,
   emoji : String,
   series : String
 });
 
-module.exports = mongoose.model("Addcard", reportSchema);
+module.exports = mongoose.model("Addboss", reportSchema);

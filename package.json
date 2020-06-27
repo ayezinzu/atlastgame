@@ -9,10 +9,16 @@
   "author": "ayezinzu@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.6.1",
+    "discord-paginationembed": "^2.0.0",
     "discord.js": "^12.2.0",
+    "discord.js-pagination": "^1.0.2",
     "dotenv-flow": "^3.1.0",
     "emap": "0.0.12",
     "enmap": "^5.2.5",
+    "humanize-duration": "^3.23.1",
+    "lodash": "^4.17.15",
+    "lodash.chunk": "^4.2.0",
     "mongoose": "^5.9.18",
     "nodemon": "^2.0.4"
   }

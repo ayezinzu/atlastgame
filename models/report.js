@@ -2,25 +2,32 @@ const mongoose = require("mongoose");
 
 const statsSchema = mongoose.Schema({
   cardname: String,
+  cardid: String,
+  upgrade: Number,
   cardtype: String,
-  cardscore: String,
+  cardscore: Number,
   imgurl: String,
-  strength: String,
-  leadership: String,
+  strength: Number,
+  leadership: Number,
   element: String,
-  vitality: String,
-  endurance: String
+  vitality: Number,
+  endurance: Number,
+  intellect: Number,
+  series: String,
+  imgurl: String,
 
 
-})
+
+
+},{ strict: false })
 
 const reportSchema = mongoose.Schema({
 
   username: String,
   userid: String,
-  dust: String,
+  dust: Number,
   cardstats: [statsSchema]
 
-});
+},{ strict: false });
 
 module.exports = mongoose.model("Report", reportSchema);

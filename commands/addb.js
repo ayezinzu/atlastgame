@@ -1,19 +1,17 @@
+const Canvas = require('canvas');
+const Discord = require('discord.js');
+
+
 const mongoose = require("mongoose");
-const Addcard = require("../models/addcard.js")
+const Addboss = require("../models/addboss.js")
 const Report = require("../models/report.js")
-mongoose.connect('mongodb+srv://admin:admin@cluster0-hlj9n.mongodb.net/atlasdb?retryWrites=true&w=majority',{
-  useNewUrlParser: true
-}, function(err){
-  if(err){
-    console.log(err);
-  }else{
-    console.log("Database connection initiated");
-  }
-});
+const Pagination = require('discord-paginationembed');
+var chunk = require('lodash.chunk');
+var _ = require('lodash');
 
 var cardname = ""
 var cardtype = ""
-var cardscore = ""
+var difficulty = 0
 var imgurl = ""
 var element = ""
 var strength = ""
@@ -26,9 +24,8 @@ var emoji = ""
 
 
 var cardid = Math.random().toString(20).substr(2, 6)
-
-exports.run = (client,message,args) => {
-  if(!message.member.roles.cache.some(r => r.name === "Admin")) return;
+exports.run = async (client,message,args) => {
+    if(!message.member.roles.cache.some(r => r.name === "Admin")) return;
   var gucci = {
     timeout : 10000,
     reason : "myhomemyrules"
@@ -125,19 +122,19 @@ message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
 
 }) })
 .then( async thirdmsg => {
-  message.reply("hmm, now enter the card score")
+  message.reply("hmm, now enter the card difficulty")
 
   await message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
-   cardscore = collected.first().content;
-  console.log(cardscore);
+   difficulty = collected.first().content;
+
 
   message.channel.send("ok , the card has been added to our stack :)")
-  const addcard = new Addcard({
+  const addcard = new Addboss({
     _id: mongoose.Types.ObjectId(),
     cardname: cardname,
 
     cardtype: cardtype,
-    cardscore: cardscore,
+    difficulty: difficulty,
     imgurl: imgurl,
     strength: strength,
     leadership: leadership,
@@ -162,9 +159,8 @@ message.channel.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
 
 
 
-
 };
 
 exports.help = {
-  name: 'add'
+  name: 'addb'
 };
