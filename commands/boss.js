@@ -68,7 +68,7 @@ console.log(random12);
         });
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
         poggers = 1
-        return
+        break
       }
       else {
         poggers = 0 
