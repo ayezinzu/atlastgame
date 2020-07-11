@@ -55,8 +55,8 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
+    for (let item of thistheguy.cardsarray){
     
-    thistheguy.cardstats.forEach((item, i) => {
       if(m.content === item.cardid){
         var enteredname = item.cardname
         var enteredcardtype = item.cardtype
@@ -72,7 +72,7 @@ console.log(random12);
       else {
         poggers = 0 
       }
-    });
+    }
     console.log(`RETUUUUUUUUUUUUURN ${poggers}`)
     if(poggers === 0){
       message.channel.send(`Error : Card not found`)
