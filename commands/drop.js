@@ -141,11 +141,12 @@ var gucci = {
                   return
                 }
                 setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 5000)
-                // edits the message after 5sif(fighters.length < 1) {
-                  x.delete(gucci)
+                // edits the message after 5s
+                if(fighters.length < 1) {
+                  message.delete(gucci)
                   return
                 }
-
+                
               }).then( () => {console.log(fighters.length);}).catch(function(err) {
               console.log(err);
              });
