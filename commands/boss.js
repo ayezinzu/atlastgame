@@ -55,7 +55,7 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
-    for (let item = 0; item < thistheguy.cardstats.length; item++){
+    for (let item in thistheguy.cardstats){
     
       if(m.content === item.cardid){
         var enteredname = item.cardname
@@ -71,6 +71,7 @@ console.log(random12);
       }
       else {
         poggers = 0 
+        console.log("LOGGED");
       }
     }
     console.log(`RETUUUUUUUUUUUUURN ${poggers}`)
