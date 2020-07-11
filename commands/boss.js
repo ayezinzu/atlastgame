@@ -57,6 +57,7 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
+    let poggers = []
     thistheguy.cardstats.forEach((item, i) => {
       if(m.content === item.cardid){
         var enteredname = item.cardname
@@ -65,8 +66,14 @@ console.log(random12);
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
         return
       }
-      message.channel.send("hello")
+      else {
+        poggers.push("pogg")
+      }
     });
+    if(poggers.length>0){
+      message.channel.send(`Error : Card not found`)
+      
+    }
 
 
   });
@@ -75,8 +82,9 @@ console.log(random12);
     console.log(`Collected ${collected.size}`);
     console.log(cardsarray[0]);
     if(cardsarray.length<1) {
-      message.channel.send("HELLOOOOOO")
-      return};
+      message.channel.send("**Oh no! Looks like the boss has escaped before our heroes could get there!**")
+      return}
+      ;
     // FINDING THE USER WITH THE CARD ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     let totalstrength = 0;
     var totalvitality = 0;
