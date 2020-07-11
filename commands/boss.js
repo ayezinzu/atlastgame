@@ -71,7 +71,7 @@ console.log(random12);
         poggers.push("pogg")
       }
     });
-    if(poggers.length>0){
+    if(poggers.includes("pogg")){
       message.channel.send(`Error : Card not found`)
       
     }
