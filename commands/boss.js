@@ -55,7 +55,7 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
-    for (let item of thistheguy.cardsarray){
+    for (let item = 0; item < thistheguy.cardsarray.length; item++){
     
       if(m.content === item.cardid){
         var enteredname = item.cardname
