@@ -63,6 +63,7 @@ console.log(random12);
         var enteredcardtype = item.cardtype
         var enteredcardelement = item.element
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
+        return
       }
       message.channel.send("hello")
     });
