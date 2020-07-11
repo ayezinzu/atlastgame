@@ -91,6 +91,7 @@ console.log(random12);
 
     if(cardsarray.length < 1){
       message.channel.send(`***Oh no! Looks like the boss has escaped before our heroes could get there!***`)
+      return
 
     }
     for (let itemone of cardsarray) {
