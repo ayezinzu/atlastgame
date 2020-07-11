@@ -51,10 +51,11 @@ console.log(random12);
    
 
     console.log(`Collected ${m.content} ${m.author.id}`);
+    let poggers = 0
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
-    let poggers = 0
+    
     thistheguy.cardstats.forEach((item, i) => {
       if(m.content === item.cardid){
         var enteredname = item.cardname
