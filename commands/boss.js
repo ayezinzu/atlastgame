@@ -48,10 +48,9 @@ console.log(random12);
 
   collector.on("collect", async m => {
     if (m.author.bot) return;
-    cardsarray.push({
-      cardid: m.content,
-      cardowner: m.author.id
-    });
+
+
+
 
     console.log(`Collected ${m.content} ${m.author.id}`);
     const thistheguy = await Report.findOne({
@@ -62,9 +61,16 @@ console.log(random12);
         var enteredname = item.cardname
         var enteredcardtype = item.cardtype
         var enteredcardelement = item.element
+        cardsarray.push({
+          cardid: m.content,
+          cardowner: m.author.id
+        });
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
+      } else {
+        message.channel.send(`\`\`CARD NOT FOUND!\`\``) return
       }
     });
+
 
 
   });
@@ -83,6 +89,10 @@ console.log(random12);
     var cardtypearray = [];
     var cardelementarray = [];
 
+    if(cardsarray.length < 1){
+      message.channel.send(`***Oh no! Looks like the boss has escaped before our heroes could get there!***`)
+
+    }
     for (let itemone of cardsarray) {
       const thisisthecard = itemone.cardid;
       console.log(`THIS IS THE CARDID ${thisisthecard}`);
