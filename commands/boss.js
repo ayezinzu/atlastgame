@@ -54,7 +54,7 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
-    let poggers = []
+    let poggers = 0
     thistheguy.cardstats.forEach((item, i) => {
       if(m.content === item.cardid){
         var enteredname = item.cardname
@@ -65,13 +65,14 @@ console.log(random12);
           cardowner: m.author.id
         });
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
+        poggers = 1
         return
       }
       else {
-        poggers.push("pogg")
+        poggers = 0 
       }
     });
-    if(poggers.includes("pogg")){
+    if(poggers === 0){
       message.channel.send(`Error : Card not found`)
       
     }
