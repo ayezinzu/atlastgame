@@ -55,8 +55,9 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
-    for (let item in thistheguy.cardstats){
     
+    for(i=0; i < thistheguy.cardstats.length; i++) {
+      const item = thistheguy.cardstats[i];
       if(m.content === item.cardid){
         var enteredname = item.cardname
         var enteredcardtype = item.cardtype
@@ -67,11 +68,10 @@ console.log(random12);
         });
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
         poggers = 1
-        break
+        return
       }
       else {
         poggers = 0 
-        console.log("LOGGED");
       }
     }
     console.log(`RETUUUUUUUUUUUUURN ${poggers}`)
