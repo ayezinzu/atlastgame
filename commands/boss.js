@@ -73,7 +73,7 @@ console.log(random12);
         poggers = 0 
       }
     });
-    console.log("REWTURNNNNNNNEDDDDD")
+    console.log(`RETUUUUUUUUUUUUURN ${poggers}`)
     if(poggers === 0){
       message.channel.send(`Error : Card not found`)
       
