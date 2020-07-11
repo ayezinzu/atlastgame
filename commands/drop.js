@@ -144,6 +144,7 @@ var gucci = {
                 // edits the message after 5s
                 if(fighters.length < 1) {
                   message.delete(gucci)
+                  console.log("hello");
                   return
                 }
                 
