@@ -67,7 +67,7 @@ console.log(random12);
         });
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
       } else {
-        message.channel.send(`\`\`CARD NOT FOUND!\`\``) return
+        message.channel.send(`\`\`CARD NOT FOUND!\`\``)
       }
     });
 
