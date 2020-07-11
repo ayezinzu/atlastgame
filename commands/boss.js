@@ -56,6 +56,7 @@ console.log(random12);
     const thistheguy = await Report.findOne({
       userid: m.author.id
     });
+    
     thistheguy.cardstats.forEach((item, i) => {
       if(m.content === item.cardid){
         var enteredname = item.cardname
@@ -66,10 +67,11 @@ console.log(random12);
           cardowner: m.author.id
         });
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
-      } if(m.content !== item.cardid) {
-        message.channel.send(`\`\`CARD NOT FOUND!\`\``)
-      }
+        return
+      } 
+      message.channel.send(`\`\`CARD NOT FOUND!\`\``)
     });
+    
 
 
 
