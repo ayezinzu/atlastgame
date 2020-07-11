@@ -64,6 +64,7 @@ console.log(random12);
         var enteredcardelement = item.element
         message.channel.send(`<@${m.author.id}> entered \`\`${enteredname} (${enteredcardtype}) - (${enteredcardelement})\`\` into the battle !`)
       }
+      message.channel.send("hello")
     });
 
 
@@ -72,6 +73,9 @@ console.log(random12);
   collector.on("end", async collected => {
     console.log(`Collected ${collected.size}`);
     console.log(cardsarray[0]);
+    if(cardsarray.length<1) {
+      message.channel.send("HELLOOOOOO")
+      return};
     // FINDING THE USER WITH THE CARD ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     let totalstrength = 0;
     var totalvitality = 0;
