@@ -136,7 +136,8 @@ var gucci = {
 
             }).then(function (newmsg) {
               message.channel.send('***The battle for the card begins in 10 seconds***').then(x => {
-                setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! Here are the results :***')}, 5000)
+                if(fighters.length < 1) return;
+                setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 5000)
                 // edits the message after 5s
               }).then( () => {console.log(fighters.length);}).catch(function(err) {
               console.log(err);
