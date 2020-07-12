@@ -139,8 +139,8 @@ if(!number) return;
 
   }).catch(err => console.log(err))
 
-
-
+newargs = ""
+itis = []
 
 }
 exports.help = {
