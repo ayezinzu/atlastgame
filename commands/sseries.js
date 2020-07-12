@@ -7,7 +7,7 @@ var _ = require('lodash');
 let okEmbed
 
 exports.run = async (client,message,args) => {
-  var newargs = args.join(" ")
+  let newargs = args.join(" ")
   const filter = m => m.author.id === message.author.id;
 var array = []
   okEmbed = new Discord.MessageEmbed().setTitle('Cards');
@@ -44,7 +44,7 @@ var array = []
 
   })
 
-var itis = []
+let itis = []
 console.log(arrayb);
 const idk = arrayb.forEach((item, i) => {
 console.log(item);
@@ -90,7 +90,7 @@ console.log(item);
 
 
 
-  var array1 = []
+  let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
 if(!number) return;
