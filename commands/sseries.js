@@ -93,7 +93,9 @@ console.log(item);
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
-if(!number) return;
+if(number === "stop"){
+  return;
+}
     await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
       if(err) {
         
