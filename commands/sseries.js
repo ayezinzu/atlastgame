@@ -95,7 +95,13 @@ console.log(item);
     number = collected.first().content;
 if(!number) return;
     await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
-      if(err) console.log(err);
+      if(err) {
+        
+        message.channel.send("```SERIES NOT FOUND```")
+        
+        console.log(err);
+      return
+      }
       if(docs) {
 
     console.log(docs[number-1].cardname);
