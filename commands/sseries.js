@@ -104,7 +104,7 @@ if(!number) return;
       }
       if(docs) {
 
-    console.log(docs[number-1].cardname);
+   
 
           const nextEmbed = new Discord.MessageEmbed().setTitle('Card information')
 
