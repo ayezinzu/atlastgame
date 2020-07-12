@@ -94,6 +94,7 @@ console.log(item);
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
 if(number === "stop"){
+  message.channel.send("Query stopped. You can now search for another series.")
   return;
 }
     await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
