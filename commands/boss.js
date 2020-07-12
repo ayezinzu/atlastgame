@@ -3773,7 +3773,7 @@ return
     let firen = 0;
     let airn = 0;
     let dualn = 0;
-    var winchance = 30;
+    var winchance = 20;
     console.log(`THIS IS THE ELEMENT ARRAY ${elementarray}`);
 
     elementarray.forEach(x => x == "Light" && lightn++);
