@@ -5,7 +5,7 @@ const Report = require("../models/report.js")
 var chunk = require('lodash.chunk');
 var _ = require('lodash');
 let okEmbed
-
+let itis = []
 exports.run = async (client,message,args) => {
   let newargs = args.join(" ")
   const filter = m => m.author.id === message.author.id;
@@ -44,7 +44,7 @@ var array = []
 
   })
 
-let itis = []
+
 console.log(arrayb);
 const idk = arrayb.forEach((item, i) => {
 console.log(item);
@@ -93,7 +93,7 @@ console.log(item);
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
-if(number === "stop"){
+if(number === "quit"){
   message.channel.send("Query stopped. You can now search for another series.")
   return;
 }
