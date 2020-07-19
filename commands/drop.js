@@ -223,6 +223,8 @@ Report.exists({userid: randomWinner}, function(err, resultok){
 randomcard = Math.floor(Math.random() * 4);
 
 
+} else {
+  message.channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2)
 } }, 10000)
 
 
