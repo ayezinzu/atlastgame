@@ -23,6 +23,7 @@ exports.run = async (client, message, args) => {
 console.log(random12);
   // SENDING BOSS MESSAGE -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   bossimg = new Discord.MessageAttachment(`${bosscard.imgurl}`);
+  var bosscardname = bosscard.cardname;
   var bossdifficulty = bosscard.difficulty;
   var bosselement = bosscard.element;
   var bossstrength = parseInt(bosscard.strength);
