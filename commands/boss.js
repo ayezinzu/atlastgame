@@ -192,7 +192,7 @@ console.log(random12);
    			  `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                           `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                           `A glancing blow \`\`${randomcard}\`\`!`,
-			  `Need some help? \`\`${randomcard}\`\` is here!`
+			  `Need some help? \`\`${randomcard}\`\` is here!`,
                           `\`\`${randomcard}\`\` is eager to get this over with.`,
                           `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                           `Never gonna give \`\`${randomcard}\`\` up!`,
