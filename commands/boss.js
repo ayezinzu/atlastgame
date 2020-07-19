@@ -7398,12 +7398,13 @@ console.log(cardc);
 // const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
 // resultEmbed.addField(`Rewards`, winmsg)
 // message.channel.send(resultEmbed)
+const finalEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+finalEmbed.addField(`Result :`, `***Oh no! Players were unable to defeat the raid boss. Better luck next time !***`)
 return
     }
     var defeat = 1
 
-    const finalEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-    finalEmbed.addField(`Result :`, `***Oh no! Players were unable to defeat the raid boss. Better luck next time !***`)
+
 
   });
 
