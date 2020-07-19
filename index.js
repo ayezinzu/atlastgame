@@ -8,13 +8,14 @@ const Enmap = require('enmap');
 const Report = require("./models/report.js")
 const Addcard = require("./models/addcard.js")
 const MongoClient = require('mongodb').MongoClient;
-
+const Channel = require("./models/channel.js")
 const used = new Map();
 const client = new Discord.Client();
 require('dotenv-flow').config();
 const mongoose = require("mongoose");
 var chunk = require('lodash.chunk');
 var _ = require('lodash');
+const { random } = require('lodash');
 
 
 const config = {
@@ -36,16 +37,25 @@ client.on('ready', () => {
 // !!mute <user> <time> <reason> \
 let msgss = 0
 
-client.on('message', message => {
+client.on('message', async message => {
   if (message.author.bot) return;
 msgss++
 
 
 console.log(msgss);
+let finalChannels = []
+const theChannel = await Channel.find();
+theChannel.forEach((randomChannel, i) => {
+  let val = randomChannel.channel.substr(2, 18);
+finalChannels.push(val)
+})
+  console.log(finalChannels)
+  finalChannels.forEach((exactChannel, i) => {
 
-
+  
     setTimeout(() => {
       if(msgss < 9) return;
+      
 msgss = 0
 
         if (message.content.indexOf(prefix) === 0) return;
@@ -110,8 +120,8 @@ msgss = 0
 
 
 
-
-          const cardmsg = message.channel.send("*wooosh !* ***A card from Atlas Has spawned***",attachment1)
+        
+          const cardmsg = client.channels.fetch(exactChannel).then(channel => {return channel.send("*wooosh !* ***A card from Atlas Has spawned***",attachment1) })
 
 
 
@@ -145,7 +155,8 @@ msgss = 0
 
 
                     }).then(function (newmsg) {
-                      message.channel.send('***The battle for the card begins in 10 seconds***').then(x => {
+                      client.channels.fetch(exactChannel).then(channel => {return channel.send('***The battle for the card begins in 10 seconds***') })
+                      .then(x => {
                         setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 5000)
                         // edits the message after 5s
                       }).then( () => {console.log(fighters.length);}).catch(function(err) {
@@ -180,7 +191,9 @@ msgss = 0
         if(map1.length > 0){
           noone = ""
         }
-          message.channel.send(`<@${randomWinner}> fought off ${map1}${noone} and won the ${cardname} \`\`${cardid}\`\` card worth +${cardscore}P`, attachment2)
+          
+          client.channels.fetch(exactChannel).then(channel => {channel.send(`<@${randomWinner}> fought off ${map1}${noone} and won the ${cardname} \`\`${cardid}\`\` card worth +${cardscore}P`, attachment2) })
+          
         console.log(strength);
         console.log(endurance);
 
@@ -223,10 +236,12 @@ msgss = 0
         randomcard = Math.floor(Math.random() * 4);
 
 
-        } }, 10000)
+        } else {
+          client.channels.fetch(exactChannel).then(channel => {channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2) })
+        } }, 30000)
 
-    },30000)
-
+    },1000)
+})
 
 
 
