@@ -8,7 +8,11 @@ const Report = require("../models/report.js");
 const Pagination = require("discord-paginationembed");
 var chunk = require("lodash.chunk");
 var _ = require("lodash");
+const Channel = require("../models/raidchannel.js")
 exports.run = async (client, message, args) => {
+  setTimeout(() => {
+    
+ 
   var cardsarray = [];
 
   // GETTING A RANDOM BOSS -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -31,6 +35,7 @@ console.log(random12);
   var bossendurance = parseInt(bosscard.endurance);
   var bossleadership = parseInt(bosscard.leadership);
   var bossintellect = parseInt(bosscard.intellect);
+  let participants
 
   await message.channel.send(`\`\`A Raid Boss Has Spawned\`\``, bossimg);
   await message.channel.send(
@@ -44,12 +49,15 @@ console.log(random12);
   await message.channel.send(`\n Battle Starts in 30 seconds!`);
   const filter = m => m.content;
   const collector = message.channel.createMessageCollector(filter, {
-    time: 10000
+    time: 30000
   });
 
   collector.on("collect", async m => {
     if (m.author.bot) return;
-   
+    if(participants.includes(m.author.id)){
+      message.channel.send(`\`\`You have already sent a fighter into this battle!\`\``)
+      return
+    }
 
     console.log(`Collected ${m.content} ${m.author.id}`);
     let poggers = 0
@@ -60,6 +68,7 @@ console.log(random12);
     for(i=0; i < thistheguy.cardstats.length; i++) {
       const item = thistheguy.cardstats[i];
       if(m.content === item.cardid){
+        participants.push(m.author.id)
         var enteredname = item.cardname
         var enteredcardtype = item.cardtype
         var enteredcardelement = item.element
@@ -7414,6 +7423,7 @@ return
   // vitalitytotal = vitalitytotal + itemit.endurance
   // leadershiptotal = leadershiptotal + itemit.endurance
   // intellecttotal = intellecttotal + itemit.endurance
+}, 14400000);
 };
 
 exports.help = {

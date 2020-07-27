@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const mongoose = require("mongoose");
 const Addcard = require("../models/addcard.js")
 const Report = require("../models/report.js")
-const Channel = require("../models/channel.js")
+const Channel = require("../models/raidchannel.js")
 
 exports.run = async (client,message,args) => {
 const setChannel = await new Channel({
@@ -13,9 +13,9 @@ const setChannel = await new Channel({
     channel: args[0]
 })
 setChannel.save();
-message.channel.send(`${args[0]} is set for Drops.`)
+message.channel.send(`${args[0]} is set for Raids.`)
 };
 
 exports.help = {
-  name: 'fun'
+  name: 'setdrop'
 };

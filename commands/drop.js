@@ -117,7 +117,7 @@ var gucci = {
   	return reaction.emoji.name === '👍';
   };
 
-  const collector = cardmsg.createReactionCollector( filter, { min:3, time: 10000 });
+  const collector = cardmsg.createReactionCollector( filter, { min:3, time: 15000 });
 
 
   collector.on('collect', (reaction, user) => {
@@ -135,7 +135,7 @@ var gucci = {
 
 
             }).then(function (newmsg) {
-              message.channel.send('***The battle for the card begins in 10 seconds***').then(x => {
+              message.channel.send('***The battle for the card begins in 15 seconds***').then(x => {
                 if(fighters.length < 1) {
                   message.delete(gucci)
                   return
