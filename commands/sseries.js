@@ -93,6 +93,7 @@ console.log(item);
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
+    if(!number) return;
 if(number === "quit"){
   message.channel.send("Query stopped. You can now search for another series.")
   return;

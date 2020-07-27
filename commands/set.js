@@ -13,6 +13,7 @@ const setChannel = await new Channel({
     channel: args[0]
 })
 setChannel.save();
+message.channel.send(`${args[0]} is set for Drops.`)
 };
 
 exports.help = {
