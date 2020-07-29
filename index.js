@@ -8,7 +8,7 @@ const Enmap = require('enmap');
 const Report = require("./models/report.js")
 const Addcard = require("./models/addcard.js")
 const MongoClient = require('mongodb').MongoClient;
-const Channel = require("./models/channel.js")
+const Channel = require("./models/dropchannel.js")
 const used = new Map();
 const client = new Discord.Client();
 require('dotenv-flow').config();
