@@ -10,7 +10,7 @@ var chunk = require("lodash.chunk");
 var _ = require("lodash");
 const Channel = require("../models/raidchannel.js")
 exports.run = async (client, message, args) => {
-  setTimeout(() => {
+  setTimeout(async () => {
     
  
   var cardsarray = [];
