@@ -35,7 +35,7 @@ console.log(random12);
   var bossendurance = parseInt(bosscard.endurance);
   var bossleadership = parseInt(bosscard.leadership);
   var bossintellect = parseInt(bosscard.intellect);
-  let participants
+  let participants = [ ]
 
   await message.channel.send(`\`\`A Raid Boss Has Spawned\`\``, bossimg);
   await message.channel.send(
@@ -102,14 +102,14 @@ console.log(random12);
       ;
     // FINDING THE USER WITH THE CARD ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     let totalstrength = 0;
-    var totalvitality = 0;
-    var totalendurance = 0;
-    var totalleadership = 0;
-    var totalintellect = 0;
-    var elementarray = [];
-    var cardnamearray = [];
-    var cardtypearray = [];
-    var cardelementarray = [];
+    let totalvitality = 0;
+    let totalendurance = 0;
+    let totalleadership = 0;
+    let totalintellect = 0;
+    let elementarray = [];
+    let cardnamearray = [];
+    let cardtypearray = [];
+    let cardelementarray = [];
 
     for (let itemone of cardsarray) {
       const thisisthecard = itemone.cardid;
@@ -135,12 +135,14 @@ console.log(random12);
     }
 
     if (
-      totalstrength <= bossstrength &&
-      totalvitality <= bossvitality &&
-      totalendurance <= bossendurance &&
-      totalleadership <= bossleadership &&
-      totalintellect <= bossintellect
+      totalstrength >= bossstrength &&
+      totalvitality >= bossvitality &&
+      totalendurance >= bossendurance &&
+      totalleadership >= bossleadership &&
+      totalintellect >= bossintellect
     ) {
+      console.log(`TOTAL STRENGHT ${totalstrenght}`)
+      console.log(`BOSS STRENGTH ${bossstrength}`)
       console.log(`We in baby`);
       // IF THE PLAYERS MEET THE BOSS STATS ---------------------------------------------------------------------------------------------------------------------------------------------------------
       let lightn = 0;
@@ -175,7 +177,7 @@ console.log(random12);
 
       console.log(`THIS IS THE FINAL WIN CHANCE ${winchance}`);
       var num = Math.random() * 100;
-      const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+      
         console.log(`not much winchance ${winchance}`);
         var randomcard =
           cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
@@ -536,10 +538,7 @@ console.log(random12);
                         randomslur8 =
                           slursarry[Math.floor(Math.random() * slursarry.length)];
                         message.channel.send(randomslur8);
-    setTimeout(() => {
-      resultEmbed.setColor(`#32CD32`)
-      message.channel.send(resultEmbed)
-    }, 1000)
+ 
                       }, 2000);
                     }, 4000);
                   }, 500);
@@ -553,7 +552,11 @@ console.log(random12);
 
 
 
-
+        setTimeout(async () => {
+          
+          const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+          
+          resultEmbed.setColor(`#32CD32`)
         if (bossdifficulty === 1) {
 
           rewardsarray = [2,3,4,"2c","1c","3c","1uc"];
@@ -696,7 +699,7 @@ console.log(random12);
               var uncommoncardarray = [];
               var commoncardarray = [];
               var winmsg = []
-  console.log("1c");
+              console.log("1c");
               // THIS CODE  ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
               Addcard.find({
                 cardtype: "Common"
@@ -735,7 +738,7 @@ console.log(random12);
                     }
                   );
                   // THIS CODE ^ ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  console.log(cardc);
+                  console.log(cardc);
                   thisistheguy.cardstats.push(cardc);
                   var carditname = cardc.cardname
                   var cardittype = cardc.cardtype
@@ -1187,7 +1190,7 @@ console.log(random12);
                     }
                   );
                   // THIS CODE ^ ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  console.log(cardc);
+                  console.log(cardc);
                   thisistheguy.cardstats.push(cardc);
                   var carditname = cardc.cardname
                   var cardittype = cardc.cardtype
@@ -3766,15 +3769,14 @@ console.log(random12);
 
 
 
-  // const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-  // resultEmbed.addField(`Rewards`, winmsg)
-  // message.channel.send(resultEmbed)
-
+  resultEmbed.addField(`Rewards`, winmsg)
+  message.channel.send(resultEmbed)
+}, 20000);
       }
 
 return
     }
-
+    console.log(`THE CARDS ARE WEAKER THAN THE REQUIREMENT`)
     let lightn = 0;
     let darkn = 0;
     let earthn = 0;
@@ -3805,10 +3807,11 @@ return
     if (bosselement === "Air") {
       winchance = winchance + earthn * 5;
     }
+    console.log(`THIS IS THE LOOSING WINCHANCE ${winchance}`)
     var num = Math.random() * 100;
     console.log(`THIS IS NUM ${num}`);
     // IF THE PLAYERS STILL WIN-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+  
     console.log(`not much winchance ${winchance}`);
     var randomcard =
       cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
@@ -4169,15 +4172,12 @@ return
                     randomslur8 =
                       slursarry[Math.floor(Math.random() * slursarry.length)];
                     message.channel.send(randomslur8);
-                    if(defeat === 1){
-                      finalEmbed.setColor(`#FF0000`)
-                      message.channel.send(finalEmbed)
-                      return
-                    }
-setTimeout(() => {
-  resultEmbed.setColor(`#32CD32`)
-  message.channel.send(resultEmbed)
-}, 1000)
+                    // if(defeat === 1){
+                    //   finalEmbed.setColor(`#FF0000`)
+                    //   message.channel.send(finalEmbed)
+                    //   return
+                    // }
+
                   }, 2000);
                 }, 4000);
               }, 500);
@@ -4186,10 +4186,14 @@ setTimeout(() => {
         }, 500);
       }, 2000);
     }, 4000);
-
+    setTimeout(async () => {
+      
+    
     if (num < winchance) {
-
-
+      const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+      resultEmbed.setColor(`#32CD32`)
+      
+      console.log(`LESS WINCHANCE BUT WE STILL WIN!!!!!!!!!! ${num} < ${winchance}`)
 
 
       if (bossdifficulty === 1) {
@@ -4334,7 +4338,7 @@ setTimeout(() => {
             var uncommoncardarray = [];
             var commoncardarray = [];
             var winmsg = []
-console.log("1c");
+            console.log("1c");
             // THIS CODE  ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
             Addcard.find({
               cardtype: "Common"
@@ -7405,14 +7409,20 @@ console.log(cardc);
 
 
 // const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-// resultEmbed.addField(`Rewards`, winmsg)
+resultEmbed.addField(`Rewards`, winmsg)
 // message.channel.send(resultEmbed)
-const finalEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-finalEmbed.addField(`Result :`, `***Oh no! Players were unable to defeat the raid boss. Better luck next time !***`)
+message.channel.send(resultEmbed)
 return
     }
-    var defeat = 1
-
+    else {
+      const finalEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+      finalEmbed.addField(`Result :`, `***Oh no! Players were unable to defeat the raid boss. Better luck next time !***`)
+      finalEmbed.setColor(`#FF0000`)
+      message.channel.send(finalEmbed)
+    }
+  
+    // let defeat = 1
+  }, 20000);
 
 
   });

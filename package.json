@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Bot for discord",
   "main": "index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "author": "ayezinzu@gmail.com",
   "license": "ISC",
   "dependencies": {
