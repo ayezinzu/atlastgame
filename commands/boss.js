@@ -10,7 +10,7 @@ var chunk = require("lodash.chunk");
 var _ = require("lodash");
 const Channel = require("../models/raidchannel.js")
 exports.run = async (client, message, args) => {
-  setTimeout(async () => {
+
     
  
   var cardsarray = [];
@@ -7423,7 +7423,7 @@ return
   // vitalitytotal = vitalitytotal + itemit.endurance
   // leadershiptotal = leadershiptotal + itemit.endurance
   // intellecttotal = intellecttotal + itemit.endurance
-}, 14400000);
+
 };
 
 exports.help = {
