@@ -19,9 +19,9 @@ const { random } = require('lodash');
 
 
 const config = {
-    token: "NzE4MDI5NDMxMjA1MTM0MzQ4.Xti7BA.dzmyYCqtO_iOLsx_BFprqeNgGHQ",
+    token: process.env.TOKEN,
     // owner: process.env.OWNER,
-    prefix: "!"
+    prefix: process.env.PREFIX
 };
 
 const prefix = config.prefix;
