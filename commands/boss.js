@@ -89,6 +89,10 @@ console.log(random12);
     if(cardsarray.length < 1) {
       message.channel.send("**Oh no! Looks like the boss has escaped before our heroes could get there!**")
       return}
+
+      setTimeout(() => {
+        message.channel.send(`**Battle commenced !**`)
+      }, 2000);
       ;
     // FINDING THE USER WITH THE CARD ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     let totalstrength = 0;

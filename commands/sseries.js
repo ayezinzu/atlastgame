@@ -5,6 +5,7 @@ const Report = require("../models/report.js")
 var chunk = require('lodash.chunk');
 var _ = require('lodash');
 let okEmbed
+let itis = []
 
 exports.run = async (client,message,args) => {
   let newargs = args.join(" ")
@@ -44,7 +45,7 @@ var array = []
 
   })
 
-let itis = []
+
 console.log(arrayb);
 const idk = arrayb.forEach((item, i) => {
 console.log(item);
@@ -89,10 +90,10 @@ console.log(item);
 
 
 
-
+message.channel.send("React with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
-    number = collected.first().content;
+    number = collected.first().content; 
 if(number === "stop"){
   message.channel.send("Query stopped. You can now search for another series.")
   return;
