@@ -2,6 +2,7 @@
 
 const Discord = require('discord.js');
 const { Client, MessageAttachment } = require('discord.js');
+const cooldowns = new Discord.Collection();
 const fs = require('fs');
 const Enmap = require('enmap');
 
@@ -39,6 +40,7 @@ let msgss = 0
 
 client.on('message', async message => {
   if (message.author.bot) return;
+
 msgss++
 
 
@@ -251,7 +253,25 @@ msgss = 0
     const command = args.shift().toLowerCase();
 
     const cmd = client.commands.get(command);
-
+    if (!cooldowns.has(command.name)) {
+      cooldowns.set(command.name, new Discord.Collection());
+    }
+    
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
+    if (timestamps.has(message.author.id)) {
+      const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    
+      if (now < expirationTime) {
+        const timeLeft = (expirationTime - now) / 1000;
+        return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      }
+    }
+    else {
+      timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+    }
     if (!cmd) return;
 
     cmd.run(client, message, args);

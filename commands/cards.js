@@ -356,5 +356,6 @@ totalpoints = 0;
 };
 
 exports.help = {
-  name: 'cards'
+  name: 'cards',
+  cooldown: 10000
 };

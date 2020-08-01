@@ -237,7 +237,8 @@ setTimeout(() => {
 }
 
 exports.help = {
-  name: 'drop'
+  name: 'drop',
+  cooldown: 10,
 };
 // then((sentMessage) =>
 // sentMessage.edit("Boop!"))
