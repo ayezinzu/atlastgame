@@ -8,7 +8,11 @@ const Report = require("../models/report.js");
 const Pagination = require("discord-paginationembed");
 var chunk = require("lodash.chunk");
 var _ = require("lodash");
+const Channel = require("../models/raidchannel.js")
 exports.run = async (client, message, args) => {
+
+    
+ 
   var cardsarray = [];
 
   // GETTING A RANDOM BOSS -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -23,6 +27,7 @@ exports.run = async (client, message, args) => {
 console.log(random12);
   // SENDING BOSS MESSAGE -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   bossimg = new Discord.MessageAttachment(`${bosscard.imgurl}`);
+  var bosscardname = bosscard.cardname;
   var bossdifficulty = bosscard.difficulty;
   var bosselement = bosscard.element;
   var bossstrength = parseInt(bosscard.strength);
@@ -30,6 +35,7 @@ console.log(random12);
   var bossendurance = parseInt(bosscard.endurance);
   var bossleadership = parseInt(bosscard.leadership);
   var bossintellect = parseInt(bosscard.intellect);
+  let participants = [ ]
 
   await message.channel.send(`\`\`A Raid Boss Has Spawned\`\``, bossimg);
   await message.channel.send(
@@ -43,12 +49,15 @@ console.log(random12);
   await message.channel.send(`\n Battle Starts in 30 seconds!`);
   const filter = m => m.content;
   const collector = message.channel.createMessageCollector(filter, {
-    time: 10000
+    time: 30000
   });
 
   collector.on("collect", async m => {
     if (m.author.bot) return;
-   
+    if(participants.includes(m.author.id)){
+      message.channel.send(`\`\`You have already sent a fighter into this battle!\`\``)
+      return
+    }
 
     console.log(`Collected ${m.content} ${m.author.id}`);
     let poggers = 0
@@ -59,6 +68,7 @@ console.log(random12);
     for(i=0; i < thistheguy.cardstats.length; i++) {
       const item = thistheguy.cardstats[i];
       if(m.content === item.cardid){
+        participants.push(m.author.id)
         var enteredname = item.cardname
         var enteredcardtype = item.cardtype
         var enteredcardelement = item.element
@@ -96,14 +106,14 @@ console.log(random12);
       ;
     // FINDING THE USER WITH THE CARD ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     let totalstrength = 0;
-    var totalvitality = 0;
-    var totalendurance = 0;
-    var totalleadership = 0;
-    var totalintellect = 0;
-    var elementarray = [];
-    var cardnamearray = [];
-    var cardtypearray = [];
-    var cardelementarray = [];
+    let totalvitality = 0;
+    let totalendurance = 0;
+    let totalleadership = 0;
+    let totalintellect = 0;
+    let elementarray = [];
+    let cardnamearray = [];
+    let cardtypearray = [];
+    let cardelementarray = [];
 
     for (let itemone of cardsarray) {
       const thisisthecard = itemone.cardid;
@@ -129,12 +139,14 @@ console.log(random12);
     }
 
     if (
-      totalstrength <= bossstrength &&
-      totalvitality <= bossvitality &&
-      totalendurance <= bossendurance &&
-      totalleadership <= bossleadership &&
-      totalintellect <= bossintellect
+      totalstrength >= bossstrength &&
+      totalvitality >= bossvitality &&
+      totalendurance >= bossendurance &&
+      totalleadership >= bossleadership &&
+      totalintellect >= bossintellect
     ) {
+      console.log(`TOTAL STRENGHT ${totalstrenght}`)
+      console.log(`BOSS STRENGTH ${bossstrength}`)
       console.log(`We in baby`);
       // IF THE PLAYERS MEET THE BOSS STATS ---------------------------------------------------------------------------------------------------------------------------------------------------------
       let lightn = 0;
@@ -169,43 +181,42 @@ console.log(random12);
 
       console.log(`THIS IS THE FINAL WIN CHANCE ${winchance}`);
       var num = Math.random() * 100;
-      const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+      
         console.log(`not much winchance ${winchance}`);
         var randomcard =
           cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
         var randomcard1 =
           cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-              var slursarry = [
-                          `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-                          `\`\`${randomcard}\`\` is leading the battle!`,
-                          `\`\`${randomcard}\`\` isn't giving up!`,
-                          `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-                          `The raid party is working well together!`,
-                          `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-                          `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
-                          `\`\`${bosscardname}\`\` is defending!`,
-                          `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-                          `\`\`${randomcard}\`\` missed their attack!`,
-                          `\`\`${randomcard}\`\` is defending!`,
-                          `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-                          `\`\`${bosscardname}\`\` is changing position!`,
-                          `\`\`${randomcard}\`\` strikes!`,
-                          `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-                          `\`\`${bosscardname}\`\` stands their ground.`,
-   			  `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-                          `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-                          `A glancing blow \`\`${randomcard}\`\`!`,
-			  `Need some help? \`\`${randomcard}\`\` is here!`
-                          `\`\`${randomcard}\`\` is eager to get this over with.`,
-                          `Oh no! \`\`${bosscardname}\`\` is powering up!`,
-                          `Never gonna give \`\`${randomcard}\`\` up!`,
-                          `\`\`${randomcard}\`\` is giving it all they got!`,
-                          `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
-                          `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-			  `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
-                          `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-                        ];
-
+          var slursarry = [
+            `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+            `\`\`${randomcard}\`\` is leading the battle!`,
+            `\`\`${randomcard}\`\` isn't giving up!`,
+            `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+            `The raid party is working well together!`,
+            `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+            `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+            `\`\`${bosscardname}\`\` is defending!`,
+            `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+            `\`\`${randomcard}\`\` missed their attack!`,
+            `\`\`${randomcard}\`\` is defending!`,
+            `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+            `\`\`${bosscardname}\`\` is changing position!`,
+            `\`\`${randomcard}\`\` strikes!`,
+            `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+            `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+            `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+            `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+            `\`\`${randomcard}\`\` is eager to get this over with.`,
+            `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+            `Never gonna give \`\`${randomcard}\`\` up!`,
+            `\`\`${randomcard}\`\` is giving it all they got!`,
+            `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+            `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+            `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+          ];
         console.log(cardnamearray);
         setTimeout(() => {
           console.log(Math.floor(Math.random() * cardnamearray.length));
@@ -230,17 +241,17 @@ console.log(random12);
               `\`\`${randomcard}\`\` strikes!`,
               `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
               `\`\`${bosscardname}\`\` stands their ground.`,
-`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+  `\`\`${randomcard}\`\` made a mistake. Sorry!`,
               `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
               `A glancing blow \`\`${randomcard}\`\`!`,
-`Need some help? \`\`${randomcard}\`\` is here!`
+  `Need some help? \`\`${randomcard}\`\` is here!`,
               `\`\`${randomcard}\`\` is eager to get this over with.`,
               `Oh no! \`\`${bosscardname}\`\` is powering up!`,
               `Never gonna give \`\`${randomcard}\`\` up!`,
               `\`\`${randomcard}\`\` is giving it all they got!`,
               `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
               `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+  `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
               `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
             ];
           randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)];
@@ -269,17 +280,17 @@ console.log(random12);
                 `\`\`${randomcard}\`\` strikes!`,
                 `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
                 `\`\`${bosscardname}\`\` stands their ground.`,
- `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+    `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                 `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                 `A glancing blow \`\`${randomcard}\`\`!`,
-`Need some help? \`\`${randomcard}\`\` is here!`
+    `Need some help? \`\`${randomcard}\`\` is here!`,
                 `\`\`${randomcard}\`\` is eager to get this over with.`,
                 `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                 `Never gonna give \`\`${randomcard}\`\` up!`,
                 `\`\`${randomcard}\`\` is giving it all they got!`,
                 `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
                 `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+    `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
                 `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
               ];
             randomslur2 = slursarry[Math.floor(Math.random() * slursarry.length)];
@@ -290,36 +301,36 @@ console.log(random12);
                 cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
               randomcard1 =
                 cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-                var slursarry = [
-                  `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-                  `\`\`${randomcard}\`\` is leading the battle!`,
-                  `\`\`${randomcard}\`\` isn't giving up!`,
-                  `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-                  `The raid party is working well together!`,
-                  `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-                  `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
-                  `\`\`${bosscardname}\`\` is defending!`,
-                  `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-                  `\`\`${randomcard}\`\` missed their attack!`,
-                  `\`\`${randomcard}\`\` is defending!`,
-                  `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-                  `\`\`${bosscardname}\`\` is changing position!`,
-                  `\`\`${randomcard}\`\` strikes!`,
-                  `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-                  `\`\`${bosscardname}\`\` stands their ground.`,
-   `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-                  `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-                  `A glancing blow \`\`${randomcard}\`\`!`,
-`Need some help? \`\`${randomcard}\`\` is here!`
-                  `\`\`${randomcard}\`\` is eager to get this over with.`,
-                  `Oh no! \`\`${bosscardname}\`\` is powering up!`,
-                  `Never gonna give \`\`${randomcard}\`\` up!`,
-                  `\`\`${randomcard}\`\` is giving it all they got!`,
-                  `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
-                  `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+               var slursarry = [
+            `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+            `\`\`${randomcard}\`\` is leading the battle!`,
+            `\`\`${randomcard}\`\` isn't giving up!`,
+            `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+            `The raid party is working well together!`,
+            `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+            `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+            `\`\`${bosscardname}\`\` is defending!`,
+            `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+            `\`\`${randomcard}\`\` missed their attack!`,
+            `\`\`${randomcard}\`\` is defending!`,
+            `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+            `\`\`${bosscardname}\`\` is changing position!`,
+            `\`\`${randomcard}\`\` strikes!`,
+            `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+            `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+            `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+            `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+            `\`\`${randomcard}\`\` is eager to get this over with.`,
+            `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+            `Never gonna give \`\`${randomcard}\`\` up!`,
+            `\`\`${randomcard}\`\` is giving it all they got!`,
+            `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+            `\`\`${randomcard}\`\` attempts to lead the next attack!`,
 `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
-                  `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-                ];
+            `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+          ];
               randomslur3 = slursarry[Math.floor(Math.random() * slursarry.length)];
               message.channel.send(randomslur3);
               setTimeout(() => {
@@ -345,17 +356,17 @@ console.log(random12);
                     `\`\`${randomcard}\`\` strikes!`,
                     `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
                     `\`\`${bosscardname}\`\` stands their ground.`,
-     `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+        `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                     `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                     `A glancing blow \`\`${randomcard}\`\`!`,
-  `Need some help? \`\`${randomcard}\`\` is here!`
+        `Need some help? \`\`${randomcard}\`\` is here!`,
                     `\`\`${randomcard}\`\` is eager to get this over with.`,
                     `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                     `Never gonna give \`\`${randomcard}\`\` up!`,
                     `\`\`${randomcard}\`\` is giving it all they got!`,
                     `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
                     `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-  `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+        `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
                     `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
                   ];
                 randomslur4 =
@@ -384,17 +395,17 @@ console.log(random12);
                       `\`\`${randomcard}\`\` strikes!`,
                       `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
                       `\`\`${bosscardname}\`\` stands their ground.`,
-       `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+          `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                       `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                       `A glancing blow \`\`${randomcard}\`\`!`,
-    `Need some help? \`\`${randomcard}\`\` is here!`
+          `Need some help? \`\`${randomcard}\`\` is here!`,
                       `\`\`${randomcard}\`\` is eager to get this over with.`,
                       `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                       `Never gonna give \`\`${randomcard}\`\` up!`,
                       `\`\`${randomcard}\`\` is giving it all they got!`,
                       `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
                       `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-    `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+          `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
                       `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
                     ];
                   randomslur5 =
@@ -427,17 +438,17 @@ console.log(random12);
                         `\`\`${randomcard}\`\` strikes!`,
                         `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
                         `\`\`${bosscardname}\`\` stands their ground.`,
-         `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+            `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                         `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                         `A glancing blow \`\`${randomcard}\`\`!`,
-      `Need some help? \`\`${randomcard}\`\` is here!`
+            `Need some help? \`\`${randomcard}\`\` is here!`,
                         `\`\`${randomcard}\`\` is eager to get this over with.`,
                         `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                         `Never gonna give \`\`${randomcard}\`\` up!`,
                         `\`\`${randomcard}\`\` is giving it all they got!`,
                         `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
                         `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-      `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+            `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
                         `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
                       ];
                     randomslur6 =
@@ -470,17 +481,17 @@ console.log(random12);
                           `\`\`${randomcard}\`\` strikes!`,
                           `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
                           `\`\`${bosscardname}\`\` stands their ground.`,
-   			  `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+              `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                           `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                           `A glancing blow \`\`${randomcard}\`\`!`,
-			  `Need some help? \`\`${randomcard}\`\` is here!`
+              `Need some help? \`\`${randomcard}\`\` is here!`,
                           `\`\`${randomcard}\`\` is eager to get this over with.`,
                           `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                           `Never gonna give \`\`${randomcard}\`\` up!`,
                           `\`\`${randomcard}\`\` is giving it all they got!`,
                           `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
                           `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-			  `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+              `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
                           `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
                         ];
                       randomslur7 =
@@ -515,26 +526,23 @@ console.log(random12);
                             `\`\`${randomcard}\`\` strikes!`,
                             `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
                             `\`\`${bosscardname}\`\` stands their ground.`,
-             `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+                `\`\`${randomcard}\`\` made a mistake. Sorry!`,
                             `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
                             `A glancing blow \`\`${randomcard}\`\`!`,
-          `Need some help? \`\`${randomcard}\`\` is here!`
+                `Need some help? \`\`${randomcard}\`\` is here!`,
                             `\`\`${randomcard}\`\` is eager to get this over with.`,
                             `Oh no! \`\`${bosscardname}\`\` is powering up!`,
                             `Never gonna give \`\`${randomcard}\`\` up!`,
                             `\`\`${randomcard}\`\` is giving it all they got!`,
                             `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
                             `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-          `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+                `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
                             `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
                           ];
                         randomslur8 =
                           slursarry[Math.floor(Math.random() * slursarry.length)];
                         message.channel.send(randomslur8);
-    setTimeout(() => {
-      resultEmbed.setColor(`#32CD32`)
-      message.channel.send(resultEmbed)
-    }, 1000)
+ 
                       }, 2000);
                     }, 4000);
                   }, 500);
@@ -548,7 +556,11 @@ console.log(random12);
 
 
 
-
+        setTimeout(async () => {
+          
+          const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+          
+          resultEmbed.setColor(`#32CD32`)
         if (bossdifficulty === 1) {
 
           rewardsarray = [2,3,4,"2c","1c","3c","1uc"];
@@ -691,7 +703,7 @@ console.log(random12);
               var uncommoncardarray = [];
               var commoncardarray = [];
               var winmsg = []
-  console.log("1c");
+              console.log("1c");
               // THIS CODE  ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
               Addcard.find({
                 cardtype: "Common"
@@ -730,7 +742,7 @@ console.log(random12);
                     }
                   );
                   // THIS CODE ^ ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  console.log(cardc);
+                  console.log(cardc);
                   thisistheguy.cardstats.push(cardc);
                   var carditname = cardc.cardname
                   var cardittype = cardc.cardtype
@@ -1182,7 +1194,7 @@ console.log(random12);
                     }
                   );
                   // THIS CODE ^ ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  console.log(cardc);
+                  console.log(cardc);
                   thisistheguy.cardstats.push(cardc);
                   var carditname = cardc.cardname
                   var cardittype = cardc.cardtype
@@ -3761,15 +3773,14 @@ console.log(random12);
 
 
 
-  // const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-  // resultEmbed.addField(`Rewards`, winmsg)
-  // message.channel.send(resultEmbed)
-
+  resultEmbed.addField(`Rewards`, winmsg)
+  message.channel.send(resultEmbed)
+}, 20000);
       }
 
 return
     }
-
+    console.log(`THE CARDS ARE WEAKER THAN THE REQUIREMENT`)
     let lightn = 0;
     let darkn = 0;
     let earthn = 0;
@@ -3800,44 +3811,46 @@ return
     if (bosselement === "Air") {
       winchance = winchance + earthn * 5;
     }
+    console.log(`THIS IS THE LOOSING WINCHANCE ${winchance}`)
     var num = Math.random() * 100;
     console.log(`THIS IS NUM ${num}`);
     // IF THE PLAYERS STILL WIN-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+  
     console.log(`not much winchance ${winchance}`);
     var randomcard =
       cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
     var randomcard1 =
       cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-    var slursarry = [
-      `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-      `  is leading the battle!`,
-      `\`\`${randomcard}\`\` isn't giving up!`,
-      `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-      `The raid party is working well together!`,
-      `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-      `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-      `\`\`${randomcard}\`\` is defending!`,
-      `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-      `\`\`${randomcard}\`\` missed their attack!`,
-      `\`\`${randomcard}\`\` is defending!`,
-      `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-      `\`\`${randomcard}\`\` is changing position!`,
-      `\`\`${randomcard}\`\` strikes!`,
-      `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-      `\`\`${randomcard}\`\` stands their ground.`,
-      `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-      `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-      `A glancing blow \`\`${randomcard}\`\`!`,
-      `\`\`${randomcard}\`\` is eager to get this over with.`,
-      `Oh no! \`\`${randomcard}\`\` is powering up!`,
-      `Never gonna give \`\`${randomcard}\`\` up!`,
-      `\`\`${randomcard}\`\` is giving it all they got!`,
-      `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-      `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-      `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-    ];
-
+      var slursarry = [
+        `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+        `\`\`${randomcard}\`\` is leading the battle!`,
+        `\`\`${randomcard}\`\` isn't giving up!`,
+        `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+        `The raid party is working well together!`,
+        `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+        `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+        `\`\`${bosscardname}\`\` is defending!`,
+        `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+        `\`\`${randomcard}\`\` missed their attack!`,
+        `\`\`${randomcard}\`\` is defending!`,
+        `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+        `\`\`${bosscardname}\`\` is changing position!`,
+        `\`\`${randomcard}\`\` strikes!`,
+        `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+        `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+        `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+        `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+        `\`\`${randomcard}\`\` is eager to get this over with.`,
+        `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+        `Never gonna give \`\`${randomcard}\`\` up!`,
+        `\`\`${randomcard}\`\` is giving it all they got!`,
+        `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+        `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+        `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+      ];
     console.log(cardnamearray);
     setTimeout(() => {
       console.log(Math.floor(Math.random() * cardnamearray.length));
@@ -3845,34 +3858,36 @@ return
         cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
       randomcard1 =
         cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-      var slursarry = [
-        `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-        `\`\`${randomcard}\`\` is leading the battle!`,
-        `\`\`${randomcard}\`\` isn't giving up!`,
-        `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-        `The raid party is working well together!`,
-        `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-        `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-        `\`\`${randomcard}\`\` is defending!`,
-        `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-        `\`\`${randomcard}\`\` missed their attack!`,
-        `\`\`${randomcard}\`\` is defending!`,
-        `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-        `\`\`${randomcard}\`\` is changing position!`,
-        `\`\`${randomcard}\`\` strikes!`,
-        `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-        `\`\`${randomcard}\`\` stands their ground.`,
-        `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-        `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-        `A glancing blow \`\`${randomcard}\`\`!`,
-        `\`\`${randomcard}\`\` is eager to get this over with.`,
-        `Oh no! \`\`${randomcard}\`\` is powering up!`,
-        `Never gonna give \`\`${randomcard}\`\` up!`,
-        `\`\`${randomcard}\`\` is giving it all they got!`,
-        `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-        `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-        `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-      ];
+        var slursarry = [
+          `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+          `\`\`${randomcard}\`\` is leading the battle!`,
+          `\`\`${randomcard}\`\` isn't giving up!`,
+          `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+          `The raid party is working well together!`,
+          `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+          `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+          `\`\`${bosscardname}\`\` is defending!`,
+          `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+          `\`\`${randomcard}\`\` missed their attack!`,
+          `\`\`${randomcard}\`\` is defending!`,
+          `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+          `\`\`${bosscardname}\`\` is changing position!`,
+          `\`\`${randomcard}\`\` strikes!`,
+          `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+          `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+          `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+          `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+          `\`\`${randomcard}\`\` is eager to get this over with.`,
+          `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+          `Never gonna give \`\`${randomcard}\`\` up!`,
+          `\`\`${randomcard}\`\` is giving it all they got!`,
+          `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+          `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+          `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+        ];
       randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)];
       message.channel.send(randomslur1);
       setTimeout(() => {
@@ -3882,34 +3897,36 @@ return
           cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
         randomcard1 =
           cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-        var slursarry = [
-          `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-          `\`\`${randomcard}\`\` is leading the battle!`,
-          `\`\`${randomcard}\`\` isn't giving up!`,
-          `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-          `The raid party is working well together!`,
-          `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-          `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-          `\`\`${randomcard}\`\` is defending!`,
-          `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-          `\`\`${randomcard}\`\` missed their attack!`,
-          `\`\`${randomcard}\`\` is defending!`,
-          `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-          `\`\`${randomcard}\`\` is changing position!`,
-          `\`\`${randomcard}\`\` strikes!`,
-          `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-          `\`\`${randomcard}\`\` stands their ground.`,
-          `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-          `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-          `A glancing blow \`\`${randomcard}\`\`!`,
-          `\`\`${randomcard}\`\` is eager to get this over with.`,
-          `Oh no! \`\`${randomcard}\`\` is powering up!`,
-          `Never gonna give \`\`${randomcard}\`\` up!`,
-          `\`\`${randomcard}\`\` is giving it all they got!`,
-          `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-          `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-          `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-        ];
+          var slursarry = [
+            `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+            `\`\`${randomcard}\`\` is leading the battle!`,
+            `\`\`${randomcard}\`\` isn't giving up!`,
+            `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+            `The raid party is working well together!`,
+            `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+            `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+            `\`\`${bosscardname}\`\` is defending!`,
+            `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+            `\`\`${randomcard}\`\` missed their attack!`,
+            `\`\`${randomcard}\`\` is defending!`,
+            `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+            `\`\`${bosscardname}\`\` is changing position!`,
+            `\`\`${randomcard}\`\` strikes!`,
+            `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+            `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+            `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+            `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+            `\`\`${randomcard}\`\` is eager to get this over with.`,
+            `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+            `Never gonna give \`\`${randomcard}\`\` up!`,
+            `\`\`${randomcard}\`\` is giving it all they got!`,
+            `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+            `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+            `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+          ];
         randomslur2 = slursarry[Math.floor(Math.random() * slursarry.length)];
         message.channel.send(randomslur2);
         setTimeout(() => {
@@ -3918,34 +3935,36 @@ return
             cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
           randomcard1 =
             cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-          var slursarry = [
-            `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-            `\`\`${randomcard}\`\` is leading the battle!`,
-            `\`\`${randomcard}\`\` isn't giving up!`,
-            `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-            `The raid party is working well together!`,
-            `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-            `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-            `\`\`${randomcard}\`\` is defending!`,
-            `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-            `\`\`${randomcard}\`\` missed their attack!`,
-            `\`\`${randomcard}\`\` is defending!`,
-            `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-            `\`\`${randomcard}\`\` is changing position!`,
-            `\`\`${randomcard}\`\` strikes!`,
-            `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-            `\`\`${randomcard}\`\` stands their ground.`,
-            `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-            `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-            `A glancing blow \`\`${randomcard}\`\`!`,
-            `\`\`${randomcard}\`\` is eager to get this over with.`,
-            `Oh no! \`\`${randomcard}\`\` is powering up!`,
-            `Never gonna give \`\`${randomcard}\`\` up!`,
-            `\`\`${randomcard}\`\` is giving it all they got!`,
-            `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-            `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-            `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-          ];
+            var slursarry = [
+              `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+              `\`\`${randomcard}\`\` is leading the battle!`,
+              `\`\`${randomcard}\`\` isn't giving up!`,
+              `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+              `The raid party is working well together!`,
+              `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+              `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+              `\`\`${bosscardname}\`\` is defending!`,
+              `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+              `\`\`${randomcard}\`\` missed their attack!`,
+              `\`\`${randomcard}\`\` is defending!`,
+              `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+              `\`\`${bosscardname}\`\` is changing position!`,
+              `\`\`${randomcard}\`\` strikes!`,
+              `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+              `\`\`${bosscardname}\`\` stands their ground.`,
+  `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+              `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+              `A glancing blow \`\`${randomcard}\`\`!`,
+  `Need some help? \`\`${randomcard}\`\` is here!`,
+              `\`\`${randomcard}\`\` is eager to get this over with.`,
+              `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+              `Never gonna give \`\`${randomcard}\`\` up!`,
+              `\`\`${randomcard}\`\` is giving it all they got!`,
+              `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+              `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+  `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+              `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+            ];
           randomslur3 = slursarry[Math.floor(Math.random() * slursarry.length)];
           message.channel.send(randomslur3);
           setTimeout(() => {
@@ -3954,34 +3973,36 @@ return
               cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
             randomcard1 =
               cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-            var slursarry = [
-              `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-              `\`\`${randomcard}\`\` is leading the battle!`,
-              `\`\`${randomcard}\`\` isn't giving up!`,
-              `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-              `The raid party is working well together!`,
-              `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-              `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-              `\`\`${randomcard}\`\` is defending!`,
-              `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-              `\`\`${randomcard}\`\` missed their attack!`,
-              `\`\`${randomcard}\`\` is defending!`,
-              `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-              `\`\`${randomcard}\`\` is changing position!`,
-              `\`\`${randomcard}\`\` strikes!`,
-              `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-              `\`\`${randomcard}\`\` stands their ground.`,
-              `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-              `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-              `A glancing blow \`\`${randomcard}\`\`!`,
-              `\`\`${randomcard}\`\` is eager to get this over with.`,
-              `Oh no! \`\`${randomcard}\`\` is powering up!`,
-              `Never gonna give \`\`${randomcard}\`\` up!`,
-              `\`\`${randomcard}\`\` is giving it all they got!`,
-              `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-              `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-              `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-            ];
+              var slursarry = [
+                `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+                `\`\`${randomcard}\`\` is leading the battle!`,
+                `\`\`${randomcard}\`\` isn't giving up!`,
+                `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+                `The raid party is working well together!`,
+                `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+                `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+                `\`\`${bosscardname}\`\` is defending!`,
+                `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+                `\`\`${randomcard}\`\` missed their attack!`,
+                `\`\`${randomcard}\`\` is defending!`,
+                `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+                `\`\`${bosscardname}\`\` is changing position!`,
+                `\`\`${randomcard}\`\` strikes!`,
+                `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+                `\`\`${bosscardname}\`\` stands their ground.`,
+    `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+                `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+                `A glancing blow \`\`${randomcard}\`\`!`,
+    `Need some help? \`\`${randomcard}\`\` is here!`,
+                `\`\`${randomcard}\`\` is eager to get this over with.`,
+                `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+                `Never gonna give \`\`${randomcard}\`\` up!`,
+                `\`\`${randomcard}\`\` is giving it all they got!`,
+                `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+                `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+    `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+                `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+              ];
             randomslur4 =
               slursarry[Math.floor(Math.random() * slursarry.length)];
             message.channel.send(randomslur4);
@@ -3991,34 +4012,36 @@ return
                 cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
               randomcard1 =
                 cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
-              var slursarry = [
-                `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-                `\`\`${randomcard}\`\` is leading the battle!`,
-                `\`\`${randomcard}\`\` isn't giving up!`,
-                `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-                `The raid party is working well together!`,
-                `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-                `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-                `\`\`${randomcard}\`\` is defending!`,
-                `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-                `\`\`${randomcard}\`\` missed their attack!`,
-                `\`\`${randomcard}\`\` is defending!`,
-                `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-                `\`\`${randomcard}\`\` is changing position!`,
-                `\`\`${randomcard}\`\` strikes!`,
-                `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-                `\`\`${randomcard}\`\` stands their ground.`,
-                `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-                `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-                `A glancing blow \`\`${randomcard}\`\`!`,
-                `\`\`${randomcard}\`\` is eager to get this over with.`,
-                `Oh no! \`\`${randomcard}\`\` is powering up!`,
-                `Never gonna give \`\`${randomcard}\`\` up!`,
-                `\`\`${randomcard}\`\` is giving it all they got!`,
-                `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-                `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-                `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-              ];
+                var slursarry = [
+                  `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+                  `\`\`${randomcard}\`\` is leading the battle!`,
+                  `\`\`${randomcard}\`\` isn't giving up!`,
+                  `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+                  `The raid party is working well together!`,
+                  `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+                  `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+                  `\`\`${bosscardname}\`\` is defending!`,
+                  `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+                  `\`\`${randomcard}\`\` missed their attack!`,
+                  `\`\`${randomcard}\`\` is defending!`,
+                  `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+                  `\`\`${bosscardname}\`\` is changing position!`,
+                  `\`\`${randomcard}\`\` strikes!`,
+                  `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+                  `\`\`${bosscardname}\`\` stands their ground.`,
+      `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+                  `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+                  `A glancing blow \`\`${randomcard}\`\`!`,
+      `Need some help? \`\`${randomcard}\`\` is here!`,
+                  `\`\`${randomcard}\`\` is eager to get this over with.`,
+                  `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+                  `Never gonna give \`\`${randomcard}\`\` up!`,
+                  `\`\`${randomcard}\`\` is giving it all they got!`,
+                  `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+                  `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+      `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+                  `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+                ];
               randomslur5 =
                 slursarry[Math.floor(Math.random() * slursarry.length)];
               message.channel.send(randomslur5);
@@ -4032,34 +4055,36 @@ return
                   cardnamearray[
                     Math.floor(Math.random() * cardnamearray.length)
                   ];
-                var slursarry = [
-                  `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-                  `\`\`${randomcard}\`\` is leading the battle!`,
-                  `\`\`${randomcard}\`\` isn't giving up!`,
-                  `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-                  `The raid party is working well together!`,
-                  `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-                  `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-                  `\`\`${randomcard}\`\` is defending!`,
-                  `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-                  `\`\`${randomcard}\`\` missed their attack!`,
-                  `\`\`${randomcard}\`\` is defending!`,
-                  `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-                  `\`\`${randomcard}\`\` is changing position!`,
-                  `\`\`${randomcard}\`\` strikes!`,
-                  `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-                  `\`\`${randomcard}\`\` stands their ground.`,
-                  `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-                  `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-                  `A glancing blow \`\`${randomcard}\`\`!`,
-                  `\`\`${randomcard}\`\` is eager to get this over with.`,
-                  `Oh no! \`\`${randomcard}\`\` is powering up!`,
-                  `Never gonna give \`\`${randomcard}\`\` up!`,
-                  `\`\`${randomcard}\`\` is giving it all they got!`,
-                  `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-                  `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-                  `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-                ];
+                  var slursarry = [
+                    `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+                    `\`\`${randomcard}\`\` is leading the battle!`,
+                    `\`\`${randomcard}\`\` isn't giving up!`,
+                    `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+                    `The raid party is working well together!`,
+                    `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+                    `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+                    `\`\`${bosscardname}\`\` is defending!`,
+                    `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+                    `\`\`${randomcard}\`\` missed their attack!`,
+                    `\`\`${randomcard}\`\` is defending!`,
+                    `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+                    `\`\`${bosscardname}\`\` is changing position!`,
+                    `\`\`${randomcard}\`\` strikes!`,
+                    `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+                    `\`\`${bosscardname}\`\` stands their ground.`,
+        `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+                    `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+                    `A glancing blow \`\`${randomcard}\`\`!`,
+        `Need some help? \`\`${randomcard}\`\` is here!`,
+                    `\`\`${randomcard}\`\` is eager to get this over with.`,
+                    `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+                    `Never gonna give \`\`${randomcard}\`\` up!`,
+                    `\`\`${randomcard}\`\` is giving it all they got!`,
+                    `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+                    `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+        `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+                    `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+                  ];
                 randomslur6 =
                   slursarry[Math.floor(Math.random() * slursarry.length)];
                 message.channel.send(randomslur6);
@@ -4073,34 +4098,36 @@ return
                     cardnamearray[
                       Math.floor(Math.random() * cardnamearray.length)
                     ];
-                  var slursarry = [
-                    `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-                    `\`\`${randomcard}\`\` is leading the battle!`,
-                    `\`\`${randomcard}\`\` isn't giving up!`,
-                    `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-                    `The raid party is working well together!`,
-                    `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-                    `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-                    `\`\`${randomcard}\`\` is defending!`,
-                    `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-                    `\`\`${randomcard}\`\` missed their attack!`,
-                    `\`\`${randomcard}\`\` is defending!`,
-                    `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-                    `\`\`${randomcard}\`\` is changing position!`,
-                    `\`\`${randomcard}\`\` strikes!`,
-                    `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-                    `\`\`${randomcard}\`\` stands their ground.`,
-                    `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-                    `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-                    `A glancing blow \`\`${randomcard}\`\`!`,
-                    `\`\`${randomcard}\`\` is eager to get this over with.`,
-                    `Oh no! \`\`${randomcard}\`\` is powering up!`,
-                    `Never gonna give \`\`${randomcard}\`\` up!`,
-                    `\`\`${randomcard}\`\` is giving it all they got!`,
-                    `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-                    `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-                    `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-                  ];
+                    var slursarry = [
+                      `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+                      `\`\`${randomcard}\`\` is leading the battle!`,
+                      `\`\`${randomcard}\`\` isn't giving up!`,
+                      `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+                      `The raid party is working well together!`,
+                      `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+                      `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+                      `\`\`${bosscardname}\`\` is defending!`,
+                      `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+                      `\`\`${randomcard}\`\` missed their attack!`,
+                      `\`\`${randomcard}\`\` is defending!`,
+                      `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+                      `\`\`${bosscardname}\`\` is changing position!`,
+                      `\`\`${randomcard}\`\` strikes!`,
+                      `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+                      `\`\`${bosscardname}\`\` stands their ground.`,
+          `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+                      `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+                      `A glancing blow \`\`${randomcard}\`\`!`,
+          `Need some help? \`\`${randomcard}\`\` is here!`,
+                      `\`\`${randomcard}\`\` is eager to get this over with.`,
+                      `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+                      `Never gonna give \`\`${randomcard}\`\` up!`,
+                      `\`\`${randomcard}\`\` is giving it all they got!`,
+                      `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+                      `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+          `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+                      `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+                    ];
                   randomslur7 =
                     slursarry[Math.floor(Math.random() * slursarry.length)];
                   message.channel.send(randomslur7);
@@ -4116,46 +4143,45 @@ return
                       cardnamearray[
                         Math.floor(Math.random() * cardnamearray.length)
                       ];
-                    var slursarry = [
-                      `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-                      `\`\`${randomcard}\`\` is leading the battle!`,
-                      `\`\`${randomcard}\`\` isn't giving up!`,
-                      `\`\`${randomcard}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
-                      `The raid party is working well together!`,
-                      `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-                      `\`\`${randomcard}\`\` prepares an attack! Look out!`,
-                      `\`\`${randomcard}\`\` is defending!`,
-                      `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
-                      `\`\`${randomcard}\`\` missed their attack!`,
-                      `\`\`${randomcard}\`\` is defending!`,
-                      `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-                      `\`\`${randomcard}\`\` is changing position!`,
-                      `\`\`${randomcard}\`\` strikes!`,
-                      `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-                      `\`\`${randomcard}\`\` stands their ground.`,
-                      `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-                      `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
-                      `A glancing blow \`\`${randomcard}\`\`!`,
-                      `\`\`${randomcard}\`\` is eager to get this over with.`,
-                      `Oh no! \`\`${randomcard}\`\` is powering up!`,
-                      `Never gonna give \`\`${randomcard}\`\` up!`,
-                      `\`\`${randomcard}\`\` is giving it all they got!`,
-                      `\`\`${randomcard}\`\` takes guard against \`\`${randomcard}\`\``,
-                      `\`\`${randomcard}\`\` attempts to lead the next attack!`,
-                      `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-                    ];
+                      var slursarry = [
+                        `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+                        `\`\`${randomcard}\`\` is leading the battle!`,
+                        `\`\`${randomcard}\`\` isn't giving up!`,
+                        `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+                        `The raid party is working well together!`,
+                        `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+                        `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+                        `\`\`${bosscardname}\`\` is defending!`,
+                        `\`\`${randomcard}\`\` assists \`\`${randomcard1}\`\`. Thanks!`,
+                        `\`\`${randomcard}\`\` missed their attack!`,
+                        `\`\`${randomcard}\`\` is defending!`,
+                        `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+                        `\`\`${bosscardname}\`\` is changing position!`,
+                        `\`\`${randomcard}\`\` strikes!`,
+                        `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+                        `\`\`${bosscardname}\`\` stands their ground.`,
+            `\`\`${randomcard}\`\` made a mistake. Sorry!`,
+                        `\`\`${randomcard}\`\` and \`\`${randomcard1}\`\` use a cooperative attack! Nice teamwork!`,
+                        `A glancing blow \`\`${randomcard}\`\`!`,
+            `Need some help? \`\`${randomcard}\`\` is here!`,
+                        `\`\`${randomcard}\`\` is eager to get this over with.`,
+                        `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+                        `Never gonna give \`\`${randomcard}\`\` up!`,
+                        `\`\`${randomcard}\`\` is giving it all they got!`,
+                        `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+                        `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+            `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+                        `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+                      ];
                     randomslur8 =
                       slursarry[Math.floor(Math.random() * slursarry.length)];
                     message.channel.send(randomslur8);
-                    if(defeat === 1){
-                      finalEmbed.setColor(`#FF0000`)
-                      message.channel.send(finalEmbed)
-                      return
-                    }
-setTimeout(() => {
-  resultEmbed.setColor(`#32CD32`)
-  message.channel.send(resultEmbed)
-}, 1000)
+                    // if(defeat === 1){
+                    //   finalEmbed.setColor(`#FF0000`)
+                    //   message.channel.send(finalEmbed)
+                    //   return
+                    // }
+
                   }, 2000);
                 }, 4000);
               }, 500);
@@ -4164,10 +4190,14 @@ setTimeout(() => {
         }, 500);
       }, 2000);
     }, 4000);
-
+    setTimeout(async () => {
+      
+    
     if (num < winchance) {
-
-
+      const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+      resultEmbed.setColor(`#32CD32`)
+      
+      console.log(`LESS WINCHANCE BUT WE STILL WIN!!!!!!!!!! ${num} < ${winchance}`)
 
 
       if (bossdifficulty === 1) {
@@ -4312,7 +4342,7 @@ setTimeout(() => {
             var uncommoncardarray = [];
             var commoncardarray = [];
             var winmsg = []
-console.log("1c");
+            console.log("1c");
             // THIS CODE  ADDS THE CARD TO THE USER ------------------------------------------------------------------------------------------------------------------------------------------------------------------
             Addcard.find({
               cardtype: "Common"
@@ -7383,14 +7413,21 @@ console.log(cardc);
 
 
 // const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-// resultEmbed.addField(`Rewards`, winmsg)
+resultEmbed.addField(`Rewards`, winmsg)
 // message.channel.send(resultEmbed)
+message.channel.send(resultEmbed)
 return
     }
-    var defeat = 1
+    else {
+      const finalEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
+      finalEmbed.addField(`Result :`, `***Oh no! Players were unable to defeat the raid boss. Better luck next time !***`)
+      finalEmbed.setColor(`#FF0000`)
+      message.channel.send(finalEmbed)
+    }
+  
+    // let defeat = 1
+  }, 20000);
 
-    const finalEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
-    finalEmbed.addField(`Result :`, `***Oh no! Players were unable to defeat the raid boss. Better luck next time !***`)
 
   });
 
@@ -7400,6 +7437,7 @@ return
   // vitalitytotal = vitalitytotal + itemit.endurance
   // leadershiptotal = leadershiptotal + itemit.endurance
   // intellecttotal = intellecttotal + itemit.endurance
+
 };
 
 exports.help = {

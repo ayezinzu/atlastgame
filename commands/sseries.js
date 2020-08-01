@@ -93,8 +93,14 @@ console.log(item);
 message.channel.send("React with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
+<<<<<<< HEAD
     number = collected.first().content; 
 if(number === "stop"){
+=======
+    number = collected.first().content;
+    if(!number) return;
+if(number === "quit"){
+>>>>>>> da5ca3ac232affa6fce7d2a05052ba178bea2ba9
   message.channel.send("Query stopped. You can now search for another series.")
   return;
 }

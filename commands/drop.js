@@ -117,7 +117,7 @@ var gucci = {
   	return reaction.emoji.name === '👍';
   };
 
-  const collector = cardmsg.createReactionCollector( filter, { min:3, time: 10000 });
+  const collector = cardmsg.createReactionCollector( filter, { min:3, time: 15000 });
 
 
   collector.on('collect', (reaction, user) => {
@@ -135,7 +135,7 @@ var gucci = {
 
 
             }).then(function (newmsg) {
-              message.channel.send('***The battle for the card begins in 10 seconds***').then(x => {
+              message.channel.send('***The battle for the card begins in 15 seconds***').then(x => {
                 if(fighters.length < 1) {
                   message.delete(gucci)
                   return
@@ -223,6 +223,8 @@ Report.exists({userid: randomWinner}, function(err, resultok){
 randomcard = Math.floor(Math.random() * 4);
 
 
+} else {
+  message.channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2)
 } }, 10000)
 
 
@@ -235,7 +237,8 @@ setTimeout(() => {
 }
 
 exports.help = {
-  name: 'drop'
+  name: 'drop',
+  cooldown: 10,
 };
 // then((sentMessage) =>
 // sentMessage.edit("Boop!"))

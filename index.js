@@ -2,19 +2,21 @@
 
 const Discord = require('discord.js');
 const { Client, MessageAttachment } = require('discord.js');
+const cooldowns = new Discord.Collection();
 const fs = require('fs');
 const Enmap = require('enmap');
 
 const Report = require("./models/report.js")
 const Addcard = require("./models/addcard.js")
 const MongoClient = require('mongodb').MongoClient;
-
+const Channel = require("./models/dropchannel.js")
 const used = new Map();
 const client = new Discord.Client();
 require('dotenv-flow').config();
 const mongoose = require("mongoose");
 var chunk = require('lodash.chunk');
 var _ = require('lodash');
+const { random } = require('lodash');
 
 
 const config = {
@@ -36,16 +38,26 @@ client.on('ready', () => {
 // !!mute <user> <time> <reason> \
 let msgss = 0
 
-client.on('message', message => {
+client.on('message', async message => {
   if (message.author.bot) return;
+
 msgss++
 
 
 console.log(msgss);
+let finalChannels = []
+const theChannel = await Channel.find();
+theChannel.forEach((randomChannel, i) => {
+  let val = randomChannel.channel.substr(2, 18);
+finalChannels.push(val)
+})
+  console.log(finalChannels)
+  finalChannels.forEach((exactChannel, i) => {
 
-
+  
     setTimeout(() => {
       if(msgss < 9) return;
+      
 msgss = 0
 
         if (message.content.indexOf(prefix) === 0) return;
@@ -110,8 +122,8 @@ msgss = 0
 
 
 
-
-          const cardmsg = message.channel.send("*wooosh !* ***A card from Atlas Has spawned***",attachment1)
+        
+          const cardmsg = client.channels.fetch(exactChannel).then(channel => {return channel.send("*wooosh !* ***A card from Atlas Has spawned***",attachment1) })
 
 
 
@@ -145,7 +157,8 @@ msgss = 0
 
 
                     }).then(function (newmsg) {
-                      message.channel.send('***The battle for the card begins in 10 seconds***').then(x => {
+                      client.channels.fetch(exactChannel).then(channel => {return channel.send('***The battle for the card begins in 10 seconds***') })
+                      .then(x => {
                         setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 5000)
                         // edits the message after 5s
                       }).then( () => {console.log(fighters.length);}).catch(function(err) {
@@ -180,7 +193,9 @@ msgss = 0
         if(map1.length > 0){
           noone = ""
         }
-          message.channel.send(`<@${randomWinner}> fought off ${map1}${noone} and won the ${cardname} \`\`${cardid}\`\` card worth +${cardscore}P`, attachment2)
+          
+          client.channels.fetch(exactChannel).then(channel => {channel.send(`<@${randomWinner}> fought off ${map1}${noone} and won the ${cardname} \`\`${cardid}\`\` card worth +${cardscore}P`, attachment2) })
+          
         console.log(strength);
         console.log(endurance);
 
@@ -223,10 +238,12 @@ msgss = 0
         randomcard = Math.floor(Math.random() * 4);
 
 
-        } }, 10000)
+        } else {
+          client.channels.fetch(exactChannel).then(channel => {channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2) })
+        } }, 30000)
 
-    },30000)
-
+    },1000)
+})
 
 
 
@@ -236,7 +253,25 @@ msgss = 0
     const command = args.shift().toLowerCase();
 
     const cmd = client.commands.get(command);
-
+    if (!cooldowns.has(command.name)) {
+      cooldowns.set(command.name, new Discord.Collection());
+    }
+    
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
+    if (timestamps.has(message.author.id)) {
+      const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    
+      if (now < expirationTime) {
+        const timeLeft = (expirationTime - now) / 1000;
+        return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      }
+    }
+    else {
+      timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+    }
     if (!cmd) return;
 
     cmd.run(client, message, args);
