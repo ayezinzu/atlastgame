@@ -3,13 +3,9 @@
   "version": "1.0.0",
   "description": "Bot for discord",
   "main": "index.js",
-<<<<<<< HEAD
   "scripts": {
     "start": "nodemon index.js"
   },
-=======
-  "scripts": {},
->>>>>>> da5ca3ac232affa6fce7d2a05052ba178bea2ba9
   "author": "ayezinzu@gmail.com",
   "license": "ISC",
   "dependencies": {
