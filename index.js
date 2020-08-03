@@ -253,6 +253,7 @@ msgss = 0
     const command = args.shift().toLowerCase();
 
     const cmd = client.commands.get(command);
+    console.log(command);
     if (!cooldowns.has(command.name)) {
       cooldowns.set(command.name, new Discord.Collection());
     }

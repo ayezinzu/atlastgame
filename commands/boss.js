@@ -9,9 +9,13 @@ const Pagination = require("discord-paginationembed");
 var chunk = require("lodash.chunk");
 var _ = require("lodash");
 const Channel = require("../models/raidchannel.js")
-exports.run = async (client, message, args) => {
 
-    
+exports.run = async (client, message, args) => {
+  
+  setInterval( async () => {
+  
+  
+  
  
   var cardsarray = [];
 
@@ -565,6 +569,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
               console.log(winmsg);
             }
             if (reward === 3) {
@@ -580,6 +585,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === 4) {
                   var winmsg = []
@@ -594,6 +600,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === "1uc") {
               var cardc = []
@@ -662,6 +669,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -740,6 +748,7 @@ console.log(random12);
                       }) - ${cardc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -846,6 +855,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -984,6 +994,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -1017,6 +1028,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
               console.log(winmsg);
             }
             if (reward === 5) {
@@ -1032,6 +1044,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === 6) {
                   var winmsg = []
@@ -1046,6 +1059,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === "1uc") {
               var cardc = []
@@ -1114,6 +1128,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -1192,6 +1207,7 @@ console.log(random12);
                       }) - ${cardc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -1298,6 +1314,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -1436,6 +1453,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -1541,6 +1559,7 @@ console.log(random12);
                       }) - ${carduc1.element}\`\`from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -1577,6 +1596,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
               console.log(winmsg);
             }
             if (reward === 6) {
@@ -1592,6 +1612,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === 7) {
                   var winmsg = []
@@ -1606,6 +1627,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === "1uc") {
               var cardc = []
@@ -1674,6 +1696,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -1828,6 +1851,7 @@ console.log(random12);
                       }) - ${cardc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -1934,6 +1958,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2072,6 +2097,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -2177,6 +2203,7 @@ console.log(random12);
                       }) - ${carduc1.element}\`\`  from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2213,6 +2240,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
               console.log(winmsg);
             }
             if (reward === 7) {
@@ -2228,6 +2256,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === 8) {
                   var winmsg = []
@@ -2242,6 +2271,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === "1uc") {
               var cardc = []
@@ -2310,6 +2340,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2418,6 +2449,7 @@ console.log(random12);
                       }) - ${cardr1.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2494,6 +2526,7 @@ console.log(random12);
                       }) - ${cardr.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2572,6 +2605,7 @@ console.log(random12);
                       }) - ${cardc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -2678,6 +2712,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2816,6 +2851,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -2919,6 +2955,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -2955,6 +2992,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
               console.log(winmsg);
             }
             if (reward === 9) {
@@ -2970,6 +3008,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === 10) {
                   var winmsg = []
@@ -2984,6 +3023,7 @@ console.log(random12);
                 }> won \`\`${reward} dust\`\` from the boss fight `
               );
               resultEmbed.addField(`Rewards`, winmsg)
+              message.channel.send(resultEmbed)
             }
             if (reward === "1uc") {
               var cardc = []
@@ -3052,6 +3092,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -3160,6 +3201,7 @@ console.log(random12);
                       }) - ${cardr1.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -3237,6 +3279,7 @@ console.log(random12);
                       }) - ${carde.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -3313,6 +3356,7 @@ console.log(random12);
                       }) - ${cardr.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -3391,6 +3435,7 @@ console.log(random12);
                       }) - ${cardc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -3497,6 +3542,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -3635,6 +3681,7 @@ console.log(random12);
                     );
 
                       resultEmbed.addField(`Rewards`, winmsg)
+                      message.channel.send(resultEmbed)
 
                 })
                 .catch(err => console.log(err));
@@ -3738,6 +3785,7 @@ console.log(random12);
                       }) - ${carduc.element}\`\` from the boss fight `
                     );
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
                 })
                 .catch(err => console.log(err));
 
@@ -3755,7 +3803,7 @@ console.log(random12);
 
 
 
-  resultEmbed.addField(`Rewards`, winmsg)
+  
   message.channel.send(resultEmbed)
 }, 20000);
       }
@@ -4186,6 +4234,7 @@ return
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
             console.log(winmsg);
           }
           if (reward === 3) {
@@ -4201,6 +4250,7 @@ return
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === 4) {
                 var winmsg = []
@@ -4215,6 +4265,7 @@ return
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === "1uc") {
             var cardc = []
@@ -4283,6 +4334,7 @@ return
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -4356,11 +4408,12 @@ console.log(cardc);
                   .then(done => console.log(`card saved`))
                   .catch(err => console.log(err));
                   winmsg.push(
-                    `<@${itemone.cardowner}> won \`\`${cardcitname} - (${
+                    `<@${itemone.cardowner}> won \`\`${carditname} - (${
                       cardittype
                     }) - ${cardc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -4467,6 +4520,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -4605,6 +4659,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -4638,6 +4693,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
             console.log(winmsg);
           }
           if (reward === 5) {
@@ -4653,6 +4709,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === 6) {
                 var winmsg = []
@@ -4667,6 +4724,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === "1uc") {
             var cardc = []
@@ -4735,6 +4793,7 @@ console.log(cardc);
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -4813,6 +4872,7 @@ console.log(cardc);
                     }) - ${cardc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -4919,6 +4979,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -5057,6 +5118,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -5162,6 +5224,7 @@ console.log(cardc);
                     }) - ${carduc1.element}\`\`from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -5198,6 +5261,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
             console.log(winmsg);
           }
           if (reward === 6) {
@@ -5213,6 +5277,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === 7) {
                 var winmsg = []
@@ -5227,6 +5292,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === "1uc") {
             var cardc = []
@@ -5295,6 +5361,7 @@ console.log(cardc);
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -5371,6 +5438,7 @@ console.log(cardc);
                     }) - ${cardr.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -5449,6 +5517,7 @@ console.log(cardc);
                     }) - ${cardc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -5555,6 +5624,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -5693,6 +5763,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -5798,6 +5869,7 @@ console.log(cardc);
                     }) - ${carduc1.element}\`\`  from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -5814,7 +5886,7 @@ console.log(cardc);
       }
       if (bossdifficulty === 4) {
 
-        rewardsarray = [6,7,8,"3c","1r", "2r"];
+        rewardsarray = [6,7,8,"1uc","1r", "1c", "2r", "2c"];
         reward = rewardsarray[Math.floor(Math.random() * rewardsarray.length)];
         console.log(`HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII ${reward}`);
         for (let itemone of cardsarray) {
@@ -5834,6 +5906,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
             console.log(winmsg);
           }
           if (reward === 7) {
@@ -5849,6 +5922,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === 8) {
                 var winmsg = []
@@ -5863,6 +5937,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === "1uc") {
             var cardc = []
@@ -5931,6 +6006,7 @@ console.log(cardc);
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6039,6 +6115,7 @@ console.log(cardc);
                     }) - ${cardr1.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6115,6 +6192,8 @@ console.log(cardc);
                     }) - ${cardr.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
+                  console.log(` here at reward ${winmsg}`)
               })
               .catch(err => console.log(err));
 
@@ -6193,6 +6272,7 @@ console.log(cardc);
                     }) - ${cardc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -6299,6 +6379,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6437,6 +6518,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -6540,6 +6622,7 @@ console.log(cardc);
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6576,6 +6659,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
             console.log(winmsg);
           }
           if (reward === 9) {
@@ -6591,6 +6675,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === 10) {
                 var winmsg = []
@@ -6605,6 +6690,7 @@ console.log(cardc);
               }> won \`\`${reward} dust\`\` from the boss fight `
             );
             resultEmbed.addField(`Rewards`, winmsg)
+            message.channel.send(resultEmbed)
           }
           if (reward === "1uc") {
             var cardc = []
@@ -6673,6 +6759,7 @@ console.log(cardc);
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6781,6 +6868,7 @@ console.log(cardc);
                     }) - ${cardr1.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6858,6 +6946,7 @@ console.log(cardc);
                     }) - ${carde.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -6934,6 +7023,7 @@ console.log(cardc);
                     }) - ${cardr.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -7012,6 +7102,7 @@ console.log(cardc);
                     }) - ${cardc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -7118,6 +7209,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -7256,6 +7348,7 @@ console.log(cardc);
                   );
 
                     resultEmbed.addField(`Rewards`, winmsg)
+                    message.channel.send(resultEmbed)
 
               })
               .catch(err => console.log(err));
@@ -7359,6 +7452,7 @@ console.log(cardc);
                     }) - ${carduc.element}\`\` from the boss fight `
                   );
                   resultEmbed.addField(`Rewards`, winmsg)
+                  message.channel.send(resultEmbed)
               })
               .catch(err => console.log(err));
 
@@ -7379,7 +7473,9 @@ console.log(cardc);
 // const resultEmbed = new Discord.MessageEmbed().setTitle('Boss fight results');
 
 // message.channel.send(resultEmbed)
-message.channel.send(resultEmbed)
+console.log(`THIS IS THE ARRAY ${winmsg}`)
+
+
 return
     }
     else {
@@ -7401,7 +7497,7 @@ return
   // vitalitytotal = vitalitytotal + itemit.endurance
   // leadershiptotal = leadershiptotal + itemit.endurance
   // intellecttotal = intellecttotal + itemit.endurance
-
+}, 14400000);
 };
 
 exports.help = {
