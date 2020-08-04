@@ -36,7 +36,7 @@ if(cooldown) {
 } else {
 
   used.set(message.author.id, Date.now() + 10000);
-  setTimeout(() => used.delete(message.author.id), 10000)
+  setTimeout(() => used.delete(message.author.id), 15000)
 }
 
   var cardname = ""
@@ -94,7 +94,7 @@ if(cooldown) {
 
 const fighters = [];
 var gucci = {
-  timeout : 10000,
+  timeout : 15000,
   reason : "myhomemyrules"
 }
 
@@ -140,8 +140,8 @@ var gucci = {
                   message.delete(gucci)
                   return
                 }
-                setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 5000)
-                // edits the message after 5s
+                setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 30000)
+                
                 if(fighters.length < 1) {
                   message.delete(gucci)
                   console.log("hello");
@@ -225,7 +225,7 @@ randomcard = Math.floor(Math.random() * 4);
 
 } else {
   message.channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2)
-} }, 10000)
+} }, 15000)
 
 
 talkedRecently.add(message.author.id);
@@ -238,7 +238,7 @@ setTimeout(() => {
 
 exports.help = {
   name: 'drop',
-  cooldown: 10000,
+  
 };
 // then((sentMessage) =>
 // sentMessage.edit("Boop!"))

@@ -23,9 +23,10 @@ const config = {
     token: process.env.TOKEN,
     // owner: process.env.OWNER,
     prefix: process.env.PREFIX
-};
+}; 
 
 const prefix = config.prefix;
+
 
 client.commands = new Enmap();
 
@@ -39,6 +40,7 @@ client.on('ready', () => {
 let msgss = 0
 
 client.on('message', async message => {
+  realMessage = message.content.toLowerCase()
   if (message.author.bot) return;
 
 msgss++
@@ -60,7 +62,7 @@ finalChannels.push(val)
       
 msgss = 0
 
-        if (message.content.indexOf(prefix) === 0) return;
+        if (realMessage.indexOf(prefix) === 0) return;
       var cardname = ""
           var imgurl = ""
           var cardscore = ""
@@ -246,10 +248,10 @@ msgss = 0
 })
 
 
-
-    if (message.content.indexOf(prefix) !== 0) return;
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+console.log(realMessage.indexOf(prefix));
+    if (realMessage.indexOf(prefix) !== 0) return;
+    
+    const args = realMessage.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     const cmd = client.commands.get(command);
