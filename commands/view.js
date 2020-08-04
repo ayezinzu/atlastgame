@@ -139,5 +139,5 @@ newEmbed.setColor('#0099ff')
 };
 
 exports.help = {
-  name: 'vcards'
+  name: 'view'
 };
