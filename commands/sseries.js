@@ -18,35 +18,16 @@ var array = []
 
 
 
-  await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
-    if(err) console.log(err);
-    if(docs) {
-
-      docs.forEach((item, i) => {
-
-  array.push(`***${i+1}.  \`\`${item.series}\`\` - ${item.cardname} \n*** `)
-
-
+  const arrayb = await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }})
+  .then(docs => {
+    const transformedDocs = docs.map((item, i) => `***${i+1}.  \`\`${item.series}\`\` - ${item.cardname} \n*** `)
+    return _.chunk(transformedDocs, 10)
+  }).catch(console.error)
+  
+  console.log(arrayb)
 
 
 
-
-
-
-      });
-
-      }
-    raynum = Math.round(array.length)
-    console.log(array);
-    console.log(raynum);
-    arrayb = _.chunk(array, 10)
-
-
-
-  })
-
-
-console.log(arrayb);
 const idk = arrayb.forEach((item, i) => {
 console.log(item);
    itis.push({
@@ -95,7 +76,7 @@ message.channel.send("React with a number to view a card. You have 10 seconds to
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
     if(!number) return;
-if(number === "quit"){
+if(number === "stop"){
   message.channel.send("Query stopped. You can now search for another series.")
   return;
 }
@@ -149,5 +130,5 @@ itis = []
 
 }
 exports.help = {
-  name: 'sname'
+  name: 'sseries'
 };

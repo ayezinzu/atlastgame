@@ -5,9 +5,10 @@ const Report = require("../models/report.js")
 var chunk = require('lodash.chunk');
 var _ = require('lodash');
 let okEmbed
+let itis = []
 
 exports.run = async (client,message,args) => {
-  var newargs = args.join(" ")
+  let newargs = args.join(" ")
   const filter = m => m.author.id === message.author.id;
 var array = []
   okEmbed = new Discord.MessageEmbed().setTitle('Cards');
@@ -17,27 +18,16 @@ var array = []
 
 
 
-  await Addcard.find({ "cardname" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
-    if(err) console.log(err);
-    if(docs) {
-
-      docs.forEach((item, i) => {
-
-  array.push(`***${i+1}.  \`\`${item.cardname}\`\` - ${item.series} \n*** `)
-  });
-
-      }
-    raynum = Math.round(array.length)
-    console.log(array);
-    console.log(raynum);
-    arrayb = _.chunk(array, 10)
+  const arrayb = await Addcard.find({ "cardname" : { $regex: newargs, $options: 'i' }})
+  .then(docs => {
+    const transformedDocs = docs.map((item, i) => `***${i+1}.  \`\`${item.cardname}\`\` - ${item.series} \n*** `)
+    return _.chunk(transformedDocs, 10)
+  }).catch(console.error)
+  
+  console.log(arrayb)
 
 
 
-  })
-
-var itis = []
-console.log(arrayb);
 const idk = arrayb.forEach((item, i) => {
 console.log(item);
    itis.push({
@@ -74,28 +64,33 @@ console.log(item);
 
   FieldsEmbed.embed
   .setColor(0x6F3FAA)
-    .setTitle("Searching cards related to that name..")
-    .setDescription(`Cards related to the name ${newargs}`)
+    .setTitle("Searching cards related to that cardname..")
+    .setDescription(`Cards related to the cardname ${newargs}`)
     .setFooter("Use the reactions to navigate.")
 
 
 
 
-
-  var array1 = []
+message.channel.send("Reply with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
+  let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
-if(!number) return;
-if(number === "quit"){
+    if(!number) return;
+if(number === "stop"){
   message.channel.send("Query stopped. You can now search for another series.")
   return;
 }
-
     await Addcard.find({ "cardname" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
-      if(err) console.log(err);
+      if(err) {
+        
+        message.channel.send("```CARDNAME NOT FOUND```")
+        
+        console.log(err);
+      return
+      }
       if(docs) {
 
-    console.log(docs[number-1].cardname);
+   
 
           const nextEmbed = new Discord.MessageEmbed().setTitle('Card information')
 
@@ -130,8 +125,8 @@ if(number === "quit"){
 
   }).catch(err => console.log(err))
 
-
-
+newargs = ""
+itis = []
 
 }
 exports.help = {
