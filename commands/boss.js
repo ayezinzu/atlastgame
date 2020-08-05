@@ -14,9 +14,11 @@ exports.run = async (client, message, args) => {
   
   setInterval( async () => {
   
-  setTimeout(() => {
-    message.channel.send(`A Raid will begin in 5 minutes! Prepare for battle!`)
-  }, 300000);
+    
+
+    setTimeout(() => {
+      message.channel.send(`A Raid will begin in 5 minutes! Prepare for battle!`)
+    }, 300000);
   
   
  
