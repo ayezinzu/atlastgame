@@ -159,7 +159,7 @@ msgss = 0
 
 
                     }).then(function (newmsg) {
-                      client.channels.fetch(exactChannel).then(channel => {return channel.send('***The battle for the card begins in 10 seconds***') })
+                      client.channels.fetch(exactChannel).then(channel => {return channel.send('***The battle for the card begins in 15 seconds***') })
                       .then(x => {
                         setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 15000)
                         // edits the message after 5s
