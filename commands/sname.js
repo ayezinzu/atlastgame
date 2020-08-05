@@ -75,6 +75,7 @@ message.channel.send("Reply with a number to view a card. You have 10 seconds to
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
+    if(number.author.id ==! message.author.id) return;
     if(!number) return;
 if(number === "stop"){
   message.channel.send("Query stopped. You can now search for another series.")
