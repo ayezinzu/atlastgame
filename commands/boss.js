@@ -7497,7 +7497,7 @@ return
   // vitalitytotal = vitalitytotal + itemit.endurance
   // leadershiptotal = leadershiptotal + itemit.endurance
   // intellecttotal = intellecttotal + itemit.endurance
-}, 14400000);
+}, 3600000);
 };
 
 exports.help = {
