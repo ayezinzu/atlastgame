@@ -50,6 +50,7 @@ console.log(item);
   .setPageIndicator(true)
    // Format based on the array, in this case we're formatting the page based on each object's `word` property
   .formatField(' ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎', el => el.word)
+  .setDisabledNavigationEmojis([`jump`])
 
   // Customise embed
   FieldsEmbed.embed
@@ -57,6 +58,7 @@ console.log(item);
   .setTitle("a title for each pages (will stay on all the pages)")
   .setDescription("same but for the description")
   .setFooter("same but for ther footer")
+  
 
   // Deploy embed
   FieldsEmbed.build();
@@ -67,6 +69,7 @@ console.log(item);
     .setTitle("Searching cards related to that cardname..")
     .setDescription(`Cards related to the cardname ${newargs}`)
     .setFooter("Use the reactions to navigate.")
+    
 
 
 

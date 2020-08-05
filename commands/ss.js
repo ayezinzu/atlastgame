@@ -50,6 +50,7 @@ console.log(item);
   .setPageIndicator(true)
    // Format based on the array, in this case we're formatting the page based on each object's `word` property
   .formatField(' ‎‏‏‎ ‎‏‏‎ ‎‏‏‎ ‎‏‏‎', el => el.word)
+  .setDisabledNavigationEmojis([`jump`])
 
   // Customise embed
   FieldsEmbed.embed
