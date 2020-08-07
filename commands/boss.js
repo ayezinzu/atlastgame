@@ -11,14 +11,14 @@ var _ = require("lodash");
 const Channel = require("../models/raidchannel.js")
 
 exports.run = async (client, message, args) => {
-  
-  setInterval( async () => {
+  // setInterval(() => {
+  //   message.channel.send(`A Raid will begin in 5 minutes! Prepare for battle!`)
+  // }, 3300000);
+  // setInterval( async () => {
   
     
 
-    await setTimeout(() => {
-      message.channel.send(`A Raid will begin in 5 minutes! Prepare for battle!`)
-    }, 300000);
+
   
   
  
@@ -7502,7 +7502,7 @@ return
   // vitalitytotal = vitalitytotal + itemit.endurance
   // leadershiptotal = leadershiptotal + itemit.endurance
   // intellecttotal = intellecttotal + itemit.endurance
-}, 3600000);
+// }, 3600000);
 };
 
 exports.help = {
