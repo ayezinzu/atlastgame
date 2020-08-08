@@ -225,7 +225,7 @@ randomcard = Math.floor(Math.random() * 4);
 
 } else {
   message.channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2)
-} }, 15000)
+} }, 16000)
 
 
 talkedRecently.add(message.author.id);

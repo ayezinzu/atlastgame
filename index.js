@@ -58,7 +58,7 @@ finalChannels.push(val)
 
   
     setTimeout(() => {
-      if(msgss < 9) return;
+      if(msgss < 20) return;
       
 msgss = 0
 
@@ -242,7 +242,7 @@ msgss = 0
 
         } else {
           client.channels.fetch(exactChannel).then(channel => {channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2) })
-        } }, 15000)
+        } }, 16000)
 
     },1000)
 })
