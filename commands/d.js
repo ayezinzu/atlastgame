@@ -121,6 +121,10 @@ var gucci = {
 
 
   collector.on('collect', (reaction, user) => {
+    if(fighters.includes(user.id) === true ) {
+      message.channel.send(`OMG chief ! <@${user.id}> is trying to cheat by reacting more than once !`)
+      return
+    }
   	console.log(`Collected ${reaction.emoji.name} from ${user.id}`);
     fighters.push(user.id);
     console.log(fighters);
