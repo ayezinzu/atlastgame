@@ -121,6 +121,10 @@ var gucci = {
 
 
   collector.on('collect', (reaction, user) => {
+    if(fighters.includes(user.id) === true ) {
+      
+      return
+    }
   	console.log(`Collected ${reaction.emoji.name} from ${user.id}`);
     fighters.push(user.id);
     console.log(fighters);

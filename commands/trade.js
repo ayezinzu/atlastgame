@@ -35,6 +35,10 @@ let intellect11
 let series11
 
 exports.run = async (client, message, args) => {
+  if(args.length < 2){
+    message.channel.send(`Invalid command usage.`)
+    return
+  }
 
   const userid = await message.author.id
   var cardid = args[0]
