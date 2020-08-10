@@ -145,13 +145,14 @@ msgss = 0
 
 
           collector.on('collect', (reaction, user) => {
+            console.log(`FIRST ${fighters}`)
             if(fighters.includes(user.id) === true && user.id !== `718029431205134348`) {
       
               return
             }
             console.log(`Collected ${reaction.emoji.name} from ${user.id}`);
             fighters.push(user.id);
-            console.log(fighters);
+            console.log(`LASTTT ${fighters}`);
             console.log(cardname);
             console.log(strength);
           });
