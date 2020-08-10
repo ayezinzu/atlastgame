@@ -121,10 +121,12 @@ var gucci = {
 
 
   collector.on('collect', (reaction, user) => {
-    if(fighters.includes(user.id) === true ) {
+    console.log(`FIRST ${fighters}`);
+    if(fighters.includes(user.id) === true && user.id !== `718029431205134348`) {
       
       return
     }
+    console.log(`LASTTT ${fighters}`);
   	console.log(`Collected ${reaction.emoji.name} from ${user.id}`);
     fighters.push(user.id);
     console.log(fighters);
