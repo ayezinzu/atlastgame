@@ -32,7 +32,7 @@ client.commands = new Enmap();
 
 client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  await client.user.setAvatar('avatar.png')
+  
 });
 
 // [!!mute @User 12h Posting too many good memes]
