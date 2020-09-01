@@ -39,13 +39,12 @@ exports.run = async (client, message, args) => {
     message.channel.send(`Invalid command usage.`)
     return
   }
-
   const userid = await message.author.id
   var cardid = args[0]
   const userid1 = message.mentions.members.first().id
 
   var cardid1 = args[2]
-
+  
   await Report.findOne({
     userid: userid
   }).then((data) => {

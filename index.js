@@ -23,14 +23,16 @@ const config = {
     token: process.env.TOKEN,
     // owner: process.env.OWNER,
     prefix: process.env.PREFIX
-};
+}; 
 
 const prefix = config.prefix;
 
+
 client.commands = new Enmap();
 
-client.on('ready', () => {
+client.on('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  
 });
 
 // [!!mute @User 12h Posting too many good memes]
@@ -39,6 +41,7 @@ client.on('ready', () => {
 let msgss = 0
 
 client.on('message', async message => {
+  realMessage = message.content.toLowerCase()
   if (message.author.bot) return;
 
 msgss++
@@ -56,11 +59,11 @@ finalChannels.push(val)
 
   
     setTimeout(() => {
-      if(msgss < 9) return;
+      if(msgss < 20) return;
       
 msgss = 0
 
-        if (message.content.indexOf(prefix) === 0) return;
+        if (realMessage.indexOf(prefix) === 0) return;
       var cardname = ""
           var imgurl = ""
           var cardscore = ""
@@ -116,7 +119,7 @@ msgss = 0
 
         const fighters = [];
         var gucci = {
-          timeout : 10000,
+          timeout : 15000,
           reason : "myhomemyrules"
         }
 
@@ -139,13 +142,18 @@ msgss = 0
             return reaction.emoji.name === '👍';
           };
 
-          const collector = cardmsg.createReactionCollector( filter, { min:3, time: 10000 });
+          const collector = cardmsg.createReactionCollector( filter, { min:3, time: 15000 });
 
 
           collector.on('collect', (reaction, user) => {
+            console.log(`FIRST ${fighters}`)
+            if(fighters.includes(user.id) === true && user.id !== `718029431205134348`) {
+      
+              return
+            }
             console.log(`Collected ${reaction.emoji.name} from ${user.id}`);
             fighters.push(user.id);
-            console.log(fighters);
+            console.log(`LASTTT ${fighters}`);
             console.log(cardname);
             console.log(strength);
           });
@@ -157,9 +165,9 @@ msgss = 0
 
 
                     }).then(function (newmsg) {
-                      client.channels.fetch(exactChannel).then(channel => {return channel.send('***The battle for the card begins in 10 seconds***') })
+                      client.channels.fetch(exactChannel).then(channel => {return channel.send('***The battle for the card begins in 15 seconds***') })
                       .then(x => {
-                        setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 5000)
+                        setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 15000)
                         // edits the message after 5s
                       }).then( () => {console.log(fighters.length);}).catch(function(err) {
                       console.log(err);
@@ -240,19 +248,20 @@ msgss = 0
 
         } else {
           client.channels.fetch(exactChannel).then(channel => {channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2) })
-        } }, 30000)
+        } }, 16000)
 
     },1000)
 })
 
 
-
-    if (message.content.indexOf(prefix) !== 0) return;
-
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+console.log(realMessage.indexOf(prefix));
+    if (realMessage.indexOf(prefix) !== 0) return;
+    
+    const args = realMessage.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     const cmd = client.commands.get(command);
+    console.log(command);
     if (!cooldowns.has(command.name)) {
       cooldowns.set(command.name, new Discord.Collection());
     }

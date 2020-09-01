@@ -18,9 +18,9 @@ var array = []
 
 
 
-  const arrayb = await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }})
+  const arrayb = await Addcard.find({ "cardname" : { $regex: newargs, $options: 'i' }})
   .then(docs => {
-    const transformedDocs = docs.map((item, i) => `***${i+1}.  \`\`${item.series}\`\` - ${item.cardname} \n*** `)
+    const transformedDocs = docs.map((item, i) => `***${i+1}.  \`\`${item.cardname}\`\` - ${item.series} \n*** `)
     return _.chunk(transformedDocs, 10)
   }).catch(console.error)
   
@@ -58,6 +58,7 @@ console.log(item);
   .setTitle("a title for each pages (will stay on all the pages)")
   .setDescription("same but for the description")
   .setFooter("same but for ther footer")
+  
 
   // Deploy embed
   FieldsEmbed.build();
@@ -65,28 +66,28 @@ console.log(item);
 
   FieldsEmbed.embed
   .setColor(0x6F3FAA)
-    .setTitle("Searching cards related to that series..")
-    .setDescription(`Cards related to the series ${newargs}`)
+    .setTitle("Searching cards related to that cardname..")
+    .setDescription(`Cards related to the cardname ${newargs}`)
     .setFooter("Use the reactions to navigate.")
+    
 
 
 
 
-message.channel.send("React with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
+message.channel.send("Reply with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
-    console.log()
     if(collected.first().author.id !== message.author.id) return;
     if(!number) return;
 if(number === "stop"){
   message.channel.send("Query stopped. You can now search for another series.")
   return;
 }
-    await Addcard.find({ "series" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
+    await Addcard.find({ "cardname" : { $regex: newargs, $options: 'i' }} , function (err, docs) {
       if(err) {
         
-        message.channel.send("```SERIES NOT FOUND```")
+        message.channel.send("```CARDNAME NOT FOUND```")
         
         console.log(err);
       return
@@ -133,6 +134,5 @@ itis = []
 
 }
 exports.help = {
-
-  name: 'sseries'
+  name: 'sname'
 };

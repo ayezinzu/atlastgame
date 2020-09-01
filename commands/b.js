@@ -18,26 +18,20 @@ exports.run = async (client,message,args) => {
  userid = await message.author.id
    cardid = args[0]
 
-   await Report.findOne({userid: userid}).then( (err,data) => {
-     if(err){
-       console.log(err) 
-       return
+   await Report.findOne({userid: userid}).then( (data) => {
+
+   data.cardstats.forEach((item, i) => {
+     if(item.cardid === cardid){
+
+       cardname = item.cardname
+       cardscore = item.cardscore
+       imgurl = item.imgurl
+
+
      }
-     if(data){
-      data.cardstats.forEach((item, i) => {
-        if(item.cardid === cardid){
-   
-          cardname = item.cardname
-          cardscore = item.cardscore
-          imgurl = item.imgurl
-   
-   
-        }
-   console.log(imgurl);
-   
-      });
-     }
- 
+console.log(imgurl);
+
+   });
 
 
    } )

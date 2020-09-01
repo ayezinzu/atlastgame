@@ -36,7 +36,7 @@ if(cooldown) {
 } else {
 
   used.set(message.author.id, Date.now() + 10000);
-  setTimeout(() => used.delete(message.author.id), 15000)
+  setTimeout(() => used.delete(message.author.id), 10000)
 }
 
   var cardname = ""
@@ -121,10 +121,12 @@ var gucci = {
 
 
   collector.on('collect', (reaction, user) => {
+    console.log(`FIRST ${fighters}`);
     if(fighters.includes(user.id) === true && user.id !== `718029431205134348`) {
       
       return
     }
+    console.log(`LASTTT ${fighters}`);
   	console.log(`Collected ${reaction.emoji.name} from ${user.id}`);
     fighters.push(user.id);
     console.log(fighters);
@@ -144,8 +146,8 @@ var gucci = {
                   message.delete(gucci)
                   return
                 }
-                setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 30000)
-                
+                setTimeout(() => {x.edit('***The battle was lethal, thank goodness no one was hurt! \n Here are the results :***')}, 15000)
+                // edits the message after 5s
                 if(fighters.length < 1) {
                   message.delete(gucci)
                   console.log("hello");
@@ -229,7 +231,7 @@ randomcard = Math.floor(Math.random() * 4);
 
 } else {
   message.channel.send(`Oh no! The \`\`${cardname}\`\` worth \`\`${cardscore} Pts\`\` got away!`, attachment2)
-} }, 16000)
+} }, 15000)
 
 
 talkedRecently.add(message.author.id);

@@ -72,11 +72,10 @@ console.log(item);
 
 
 
-message.channel.send("React with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
+message.channel.send("Reply with a number to view a card. You have 10 seconds to respond. Say \`\`stop\`\` if youd like to immediately perform another search. ")
   let array1 = []
   await message.channel.awaitMessages(filter, {max: 1, time: 10000}).then(async collected => {
     number = collected.first().content;
-    console.log()
     if(collected.first().author.id !== message.author.id) return;
     if(!number) return;
 if(number === "stop"){
@@ -133,6 +132,5 @@ itis = []
 
 }
 exports.help = {
-
   name: 'sseries'
 };
