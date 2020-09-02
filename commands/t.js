@@ -45,11 +45,15 @@ exports.run = async (client, message, args) => {
 
   var cardid1 = args[2]
   
-  await Report.findOne({
+  const data = await Report.findOne({
     userid: userid
-  }).then((data) => {
+  })
 
     data.cardstats.forEach((item, i) => {
+      if(item.cardid !== cardid){
+        message.channel.send(`Incorrect card id.`)
+        break
+      }
       if (item.cardid === cardid) {
 
         cardname = item.cardname
@@ -61,22 +65,20 @@ exports.run = async (client, message, args) => {
 
 
       }
-      else{
-        message.channel.send(`the card id did not match.`)
-        return
-      }
-      
-
-    });
+      });
 
 
+  
+
+  const data1 = await Report.findOne({
+    userid: userid1
   })
 
-  await Report.findOne({
-    userid: userid1
-  }).then((data) => {
-
-    data.cardstats.forEach((item, i) => {
+    data1.cardstats.forEach((item, i) => {
+      if(item.cardid !== cardid1){
+        message.channel.send(`Incorrect card id.`)
+        break
+      }
       if (item.cardid === cardid1) {
 
         cardname1 = item.cardname
@@ -97,7 +99,7 @@ exports.run = async (client, message, args) => {
     });
 
 
-  })
+  
 
 
   console.log(userid1);
