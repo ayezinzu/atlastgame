@@ -45,59 +45,70 @@ exports.run = async (client, message, args) => {
 
   var cardid1 = args[2]
   
-  await Report.findOne({
+  const data = await Report.findOne({
     userid: userid
-  }).then((data) => {
-
-    data.cardstats.forEach((item, i) => {
+  })
+let result1 = ""
+  for(item of data.cardstats){
+   
+   
       if (item.cardid === cardid) {
-
+    
         cardname = item.cardname
         cardscore = item.cardscore
         imgurl = item.imgurl
         upgrade = item.upgrade
         series = item.series
-
-
-
+        result1 = "yes"
+        break
       }
-      else{
-        message.channel.send(`the card id did not match.`)
-        return
+      else {
+        result1 = "no"
       }
-      
-
-    });
+     }
 
 
-  })
+     if(result1 === "no"){
+      message.channel.send(`id not found.`)
+      return
+    }
 
-  await Report.findOne({
+  const data1 = await Report.findOne({
     userid: userid1
-  }).then((data) => {
-
-    data.cardstats.forEach((item, i) => {
+  })
+  let result = ""
+  for(item of data1.cardstats){
+    
+      
       if (item.cardid === cardid1) {
-
+    
         cardname1 = item.cardname
         cardscore1 = item.cardscore
         imgurl1 = item.imgurl
         upgrade1 = item.upgrade
         series11 = item.series
-
-
-
+        result = "yes"
+        break
       }
-      else{
-        message.channel.send(`the card id did not match.`)
-        return
+      else {
+        result = "no"
       }
       
+    }
+    if(result === "no"){
+      message.channel.send(`id not found.`)
+      return
+    }
+   
+    
+ 
+     
+      
 
-    });
+    
 
 
-  })
+  
 
 
   console.log(userid1);
