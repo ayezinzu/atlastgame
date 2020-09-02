@@ -49,23 +49,21 @@ exports.run = async (client, message, args) => {
     userid: userid
   })
 
-    data.cardstats.forEach((item, i) => {
-      if(item.cardid !== cardid){
+  for(let i = 0; i < data.cardstats.length; i++){
+    let item = data.cardstats[i]
+      if(item.cardid !== cardid1){
         message.channel.send(`Incorrect card id.`)
-        break
+        return
       }
-      if (item.cardid === cardid) {
-
-        cardname = item.cardname
-        cardscore = item.cardscore
-        imgurl = item.imgurl
-        upgrade = item.upgrade
-        series = item.series
-
-
-
+      if (item.cardid === cardid1) {
+    
+        cardname1 = item.cardname
+        cardscore1 = item.cardscore
+        imgurl1 = item.imgurl
+        upgrade1 = item.upgrade
+        series11 = item.series
       }
-      });
+    }
 
 
   
@@ -73,30 +71,27 @@ exports.run = async (client, message, args) => {
   const data1 = await Report.findOne({
     userid: userid1
   })
-
-    data1.cardstats.forEach((item, i) => {
+  for(let i = 0; i < data1.cardstats.length; i++){
+    let item = data1.cardstats[i]
       if(item.cardid !== cardid1){
         message.channel.send(`Incorrect card id.`)
-        break
+        return
       }
       if (item.cardid === cardid1) {
-
+    
         cardname1 = item.cardname
         cardscore1 = item.cardscore
         imgurl1 = item.imgurl
         upgrade1 = item.upgrade
         series11 = item.series
-
-
-
       }
-      else{
-        message.channel.send(`the card id did not match.`)
-        return
-      }
+    }
+    
+ 
+     
       
 
-    });
+    
 
 
   
