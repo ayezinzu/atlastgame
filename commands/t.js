@@ -51,6 +51,7 @@ exports.run = async (client, message, args) => {
   }).then((data, err) => {
     if(err){
       message.channel.send(`Wrong card id. Please try again.`)
+      return
     }
     if(data){
       data.cardstats.forEach((item, i) => {
@@ -80,6 +81,7 @@ exports.run = async (client, message, args) => {
   }).then((data, err) => {
     if(err) {
       message.channel.send(`Wrong card id. Please try again. `)
+      return
     }
     if(data) {
       data.cardstats.forEach((item, i) => {
