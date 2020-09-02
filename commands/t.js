@@ -76,7 +76,7 @@ let result1 = ""
     userid: userid1
   })
   let result = ""
-  for(item of data1.cardstats.length){
+  for(item of data1.cardstats){
     
       
       if (item.cardid === cardid1) {
