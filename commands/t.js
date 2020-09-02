@@ -70,6 +70,7 @@ let result1 = ""
 
      if(result1 === "no"){
       message.channel.send(`id not found.`)
+      return
     }
 
   const data1 = await Report.findOne({
@@ -96,6 +97,7 @@ let result1 = ""
     }
     if(result === "no"){
       message.channel.send(`id not found.`)
+      return
     }
    
     
