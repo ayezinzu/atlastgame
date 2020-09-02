@@ -63,6 +63,7 @@ exports.run = async (client, message, args) => {
       }
       else{
         message.channel.send(`the card id did not match.`)
+        return
       }
       
 
@@ -89,6 +90,7 @@ exports.run = async (client, message, args) => {
       }
       else{
         message.channel.send(`the card id did not match.`)
+        return
       }
       
 
