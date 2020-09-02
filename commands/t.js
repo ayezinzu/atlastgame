@@ -39,54 +39,66 @@ exports.run = async (client, message, args) => {
     message.channel.send(`Invalid command usage.`)
     return
   }
+
   const userid = await message.author.id
   var cardid = args[0]
   const userid1 = message.mentions.members.first().id
 
   var cardid1 = args[2]
-  
+
   await Report.findOne({
     userid: userid
-  }).then((data) => {
+  }).then((data, err) => {
+    if(err){
+      message.channel.send(`Wrong card id. Please try again.`)
+    }
+    if(data){
+      data.cardstats.forEach((item, i) => {
+        if (item.cardid === cardid) {
+  
+          cardname = item.cardname
+          cardscore = item.cardscore
+          imgurl = item.imgurl
+          upgrade = item.upgrade
+          series = item.series
+  
+  
+  
+        }
+        console.log(imgurl);
+  
+      });
+    }
 
-    data.cardstats.forEach((item, i) => {
-      if (item.cardid === cardid) {
-
-        cardname = item.cardname
-        cardscore = item.cardscore
-        imgurl = item.imgurl
-        upgrade = item.upgrade
-        series = item.series
-
-
-
-      }
-      console.log(imgurl);
-
-    });
+   
 
 
   })
 
   await Report.findOne({
     userid: userid1
-  }).then((data) => {
-
-    data.cardstats.forEach((item, i) => {
-      if (item.cardid === cardid1) {
-
-        cardname1 = item.cardname
-        cardscore1 = item.cardscore
-        imgurl1 = item.imgurl
-        upgrade1 = item.upgrade
-        series11 = item.series
-
-
-
-      }
-      console.log(imgurl);
-
-    });
+  }).then((data, err) => {
+    if(err) {
+      message.channel.send(`Wrong card id. Please try again. `)
+    }
+    if(data) {
+      data.cardstats.forEach((item, i) => {
+        if (item.cardid === cardid1) {
+  
+          cardname1 = item.cardname
+          cardscore1 = item.cardscore
+          imgurl1 = item.imgurl
+          upgrade1 = item.upgrade
+          series11 = item.series
+  
+  
+  
+        }
+        console.log(imgurl);
+  
+      });
+    }
+  
 
 
   })
