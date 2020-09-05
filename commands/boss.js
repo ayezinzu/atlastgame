@@ -124,6 +124,8 @@
       let cardtypearray = [];
       let cardelementarray = [];
 
+      
+
       for (let itemone of cardsarray) {
         const thisisthecard = itemone.cardid;
         console.log(`THIS IS THE CARDID ${thisisthecard}`);
