@@ -123,6 +123,9 @@ class Calculations {
 }
 
 for (itemone of newInput.cardsarray){
+
+
+
     let thisisthecard = itemone.cardid;
     let thisistheguy = await Report.findOne({
         userid: itemone.cardowner
@@ -146,6 +149,57 @@ for (itemone of newInput.cardsarray){
     }
 
     newCalculations = new Calculations(totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray)
+
+    if (
+      newCalculations.totalstrength <= newInput.bossstrength &&
+      newCalculations.totalvitality <= newInput.bossvitality &&
+      newCalculations.totalendurance <= newInput.bossendurance &&
+      newCalculations.totalleadership <= newInput.bossleadership &&
+      newCalculations.totalintellect <= newInput.bossintellect
+    ) {
+      class Elements {
+        constructor(lightn,darkn,earthn,watern,firen,airn,dualn,winchance){
+          this.lightn = lightn
+          this.darkn = darkn
+          this.earthn = earthn
+          this.watern = watern
+          this.firen = firen
+          this.airn = airn
+          this.dualn = dualn
+          this.winchance = winchance
+        }
+      }
+
+      let lightn = 0;
+      let darkn = 0;
+      let earthn = 0;
+      let watern = 0;
+      let firen = 0;
+      let airn = 0;
+      let dualn = 0;
+      var winchance = 80;
+
+      let newElements = new Elements(lightn,darkn,earthn,watern,firen,airn,dualn,winchance)
+      newCalculations.elementarray.forEach(x => x == "Light" && lightn++);
+      newCalculations.elementarray.forEach(x => x == "Dark" && darkn++);
+      newCalculations.elementarray.forEach(x => x == "Earth" && earthn++);
+      newCalculations.elementarray.forEach(x => x == "Fire" && firen++);
+      newCalculations.elementarray.forEach(x => x == "Air" && airn++);
+      newCalculations.elementarray.forEach(x => x == "Dual" && dualn++);
+
+      if (newInput.bosselement === "Water") {
+        newElements.winchance = newElements.winchance + newElements.airn * 5;
+      }
+      if (newInput.bosselement === "Fire") {
+        newElements.winchance = newElements.winchance + newElements.watern * 5;
+      }
+      if (newInput.bosselement === "Earth") {
+        newElements.winchance = newElements.winchance + newElements.firen * 5;
+      }
+      if (newInput.bosselement === "Air") {
+        newElements.winchance = newElements.winchance + newElements.earthn * 5;
+      }
+    }
 
 })
 

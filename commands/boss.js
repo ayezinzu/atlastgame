@@ -44,7 +44,7 @@
     var bossendurance = parseInt(bosscard.endurance);
     var bossleadership = parseInt(bosscard.leadership);
     var bossintellect = parseInt(bosscard.intellect);
-    let participants = [ ]
+    let participants = []
 
     await message.channel.send(`\`\`A Raid Boss Has Spawned\`\``, bossimg);
     await message.channel.send(
