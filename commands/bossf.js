@@ -158,7 +158,7 @@ for (itemone of newInput.cardsarray){
       newCalculations.totalintellect <= newInput.bossintellect
     ) {
       class Elements {
-        constructor(lightn,darkn,earthn,watern,firen,airn,dualn,winchance){
+        constructor(lightn,darkn,earthn,watern,firen,airn,dualn,winchance,slursarry){
           this.lightn = lightn
           this.darkn = darkn
           this.earthn = earthn
@@ -167,9 +167,38 @@ for (itemone of newInput.cardsarray){
           this.airn = airn
           this.dualn = dualn
           this.winchance = winchance
+          this.num = Math.random() * 100
+          this.slursarry = slursarry
         }
       }
-
+      let slursarry = [
+        `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+        `\`\`${randomcard}\`\` is leading the battle!`,
+        `\`\`${randomcard}\`\` isn't giving up!`,
+        `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+        `The raid party is working well together!`,
+        `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+        `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+        `\`\`${bosscardname}\`\` is defending!`,
+        `\`\`${randomcard}\`\` missed their attack!`,
+        `\`\`${randomcard}\`\` is defending!`,
+        `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+        `\`\`${bosscardname}\`\` is changing position!`,
+        `\`\`${randomcard}\`\` strikes!`,
+        `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+        `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+        `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+        `\`\`${randomcard}\`\` is eager to get this over with.`,
+        `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+        `Never gonna give \`\`${randomcard}\`\` up!`,
+        `\`\`${randomcard}\`\` is giving it all they got!`,
+        `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+        `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+        `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+      ]
       let lightn = 0;
       let darkn = 0;
       let earthn = 0;
@@ -179,7 +208,7 @@ for (itemone of newInput.cardsarray){
       let dualn = 0;
       var winchance = 80;
 
-      let newElements = new Elements(lightn,darkn,earthn,watern,firen,airn,dualn,winchance)
+      let newElements = new Elements(lightn,darkn,earthn,watern,firen,airn,dualn,winchance,slursarry)
       newCalculations.elementarray.forEach(x => x == "Light" && lightn++);
       newCalculations.elementarray.forEach(x => x == "Dark" && darkn++);
       newCalculations.elementarray.forEach(x => x == "Earth" && earthn++);
@@ -199,6 +228,23 @@ for (itemone of newInput.cardsarray){
       if (newInput.bosselement === "Air") {
         newElements.winchance = newElements.winchance + newElements.earthn * 5;
       }
+
+      let randomcard
+      let randomcard1
+      let randomslur1
+      
+         randomcard =
+        cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
+         randomcard1 =
+        cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
+         randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)];
+      
+
+      randomSelection(newCalculations.cardnamearray, newElements
+    
+    
+
+
     }
 
 })
