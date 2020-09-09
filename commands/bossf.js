@@ -10,6 +10,7 @@
 // let _ = require("lodash");
 // const Channel = require("../models/raidchannel.js")
 // exports.run = async (client, message, args) => {
+//   message.channel.send('hello')
 //     let cardsarray = [] // this will contain cards of the participants
 //     let participants = [] // array of participants
 //     class Input {
@@ -62,7 +63,7 @@
 //     await message.channel.send(`\n Battle Starts in 30 seconds!`);
 //     const filter = m => m.content;
 //     const collector = message.channel.createMessageCollector(filter, {
-//     time: 30000
+//     time: 5000
 //   });
 //   // sending initiative messages
 //   let thistheguy
@@ -103,20 +104,26 @@
 //         }
 // })
 // collector.on("end", async collected => {
+//   const wait = util.promisify(setTimeout)
+//   let totalstrength = 0
+//   let totalvitality = 0
+//   let totalendurance = 0
+//   let totalleadership = 0
+//   let totalintellect = 0
 //   let elementarray = [];
 //   let cardnamearray = [];
 //   let cardtypearray = [];
 //   let cardelementarray = [];
-//   console.log(thistheguy, `thistheguy`)
 // let newInput = new Input(cardsarray, participants, bosscardname,bossdifficulty, bosselement, bossstrength, bossvitality, bossendurance, bossleadership, bossintellect, thistheguy, enteredname, enteredcardtype, enteredcardelement)
 
 // if(newInput.cardsarray.length < 1) {
 //   message.channel.send("**Oh no! Looks like the boss has escaped before our heroes could get there!**")
 //   return
 // }
-// setTimeout(() => {
-//     message.channel.send(`**Battle commenced !**`)
-//   }, 2000);
+// await wait(2000)
+// message.channel.send(`**Battle commenced !**`)
+
+
 // class Calculations {
 //     constructor (totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray) {
 //         this.totalstrength = totalstrength
@@ -158,14 +165,15 @@
 //     }
 
 //     newCalculations = new Calculations(totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray)
-
+// console.log(newCalculations.totalstrength,newInput.bossstrength)
 //     if (
-//       newCalculations.totalstrength <= newInput.bossstrength &&
-//       newCalculations.totalvitality <= newInput.bossvitality &&
-//       newCalculations.totalendurance <= newInput.bossendurance &&
-//       newCalculations.totalleadership <= newInput.bossleadership &&
-//       newCalculations.totalintellect <= newInput.bossintellect
+//       newCalculations.totalstrength < newInput.bossstrength &&
+//       newCalculations.totalvitality < newInput.bossvitality &&
+//       newCalculations.totalendurance < newInput.bossendurance &&
+//       newCalculations.totalleadership < newInput.bossleadership &&
+//       newCalculations.totalintellect < newInput.bossintellect
 //     ) {
+//       console.log('we in')
 //       class Elements {
 //         constructor(lightn,darkn,earthn,watern,firen,airn,dualn,winchance){
 //           this.lightn = lightn
@@ -209,49 +217,51 @@
 //         newElements.winchance = newElements.winchance + newElements.earthn * 5;
 //       }
 //       let randomcard
-//       var slursarry = [
-//         `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
-//         `\`\`${randomcard}\`\` is leading the battle!`,
-//         `\`\`${randomcard}\`\` isn't giving up!`,
-//         `\`\`${newInput.bosscardname}\`\` deals a massive blow to \`\`${randomcard}\`\`. That's going to hurt.`,
-//         `The raid party is working well together!`,
-//         `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
-//         `\`\`${newInput.bosscardname}\`\` prepares an attack! Look out!`,
-//         `\`\`${newInput.bosscardname}\`\` is defending!`,
-//         `\`\`${randomcard}\`\` missed their attack!`,
-//         `\`\`${randomcard}\`\` is defending!`,
-//         `That attack landed \`\`${randomcard}\`\`! Nice one!`,
-//         `\`\`${newInput.bosscardname}\`\` is changing position!`,
-//         `\`\`${randomcard}\`\` strikes!`,
-//         `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
-//         `\`\`${newInput.bosscardname}\`\` stands their ground.`,
+
+
+
+
+
+//   function sendRandomSlur(cardnamearray) {
+//     randomcard = cardnamearray[Math.floor(Math.random() * cardnamearray.length)]
+//     let slursarry = [
+//       `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+//       `\`\`${randomcard}\`\` is leading the battle!`,
+//       `\`\`${randomcard}\`\` isn't giving up!`,
+//       `\`\`${newInput.bosscardname}\`\` deals a massive blow to \`\`${randomcard}\`\`. That's going to hurt.`,
+//       `The raid party is working well together!`,
+//       `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+//       `\`\`${newInput.bosscardname}\`\` prepares an attack! Look out!`,
+//       `\`\`${newInput.bosscardname}\`\` is defending!`,
+//       `\`\`${randomcard}\`\` missed their attack!`,
+//       `\`\`${randomcard}\`\` is defending!`,
+//       `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+//       `\`\`${newInput.bosscardname}\`\` is changing position!`,
+//       `\`\`${randomcard}\`\` strikes!`,
+//       `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+//       `\`\`${newInput.bosscardname}\`\` stands their ground.`,
 // `\`\`${randomcard}\`\` made a mistake. Sorry!`,
-//         `A glancing blow \`\`${randomcard}\`\`!`,
+//       `A glancing blow \`\`${randomcard}\`\`!`,
 // `Need some help? \`\`${randomcard}\`\` is here!`,
-//         `\`\`${randomcard}\`\` is eager to get this over with.`,
-//         `Oh no! \`\`${newInput.bosscardname}\`\` is powering up!`,
-//         `Never gonna give \`\`${randomcard}\`\` up!`,
-//         `\`\`${randomcard}\`\` is giving it all they got!`,
-//         `\`\`${randomcard}\`\` takes guard against \`\`${newInput.bosscardname}\`\``,
-//         `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+//       `\`\`${randomcard}\`\` is eager to get this over with.`,
+//       `Oh no! \`\`${newInput.bosscardname}\`\` is powering up!`,
+//       `Never gonna give \`\`${randomcard}\`\` up!`,
+//       `\`\`${randomcard}\`\` is giving it all they got!`,
+//       `\`\`${randomcard}\`\` takes guard against \`\`${newInput.bosscardname}\`\``,
+//       `\`\`${randomcard}\`\` attempts to lead the next attack!`,
 // `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
-//         `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
-//       ]
-
-
-// const wait = util.promisify(setTimeout)
-
-//   function sendRandomSlur(cardnamearray, slursarry) {
+//       `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+//     ]
     
-//       randomcard = cardnamearray[Math.floor(Math.random() * cardnamearray.length)],
-//       randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)]
+//     randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)]
 //       message.channel.send(randomslur1)
     
 //   }
+//   console.log([Math.floor(Math.random() * cardnamearray.length)])
+//   sendRandomSlur(newCalculations.cardnamearray)
   
-//   sendRandomSlur(newCalculations.cardnamearray, slursarry)
 //   await wait(2000)
-//   sendRandomSlur(newCalculations.cardnamearray, slursarry)
+//   sendRandomSlur(newCalculations.cardnamearray)
 //   await wait(4000)
   
   
@@ -264,5 +274,5 @@
 
 // }
 // exports.help = {
-//   name: "boss"
+//   name: "bossf"
 // };
