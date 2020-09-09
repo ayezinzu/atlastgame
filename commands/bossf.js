@@ -146,6 +146,7 @@
 
 //       }
       
+<<<<<<< HEAD
 //     }
 
 //     newCalculations = new Calculations(totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray)
@@ -256,3 +257,113 @@
 // exports.help = {
 //   name: "boss"
 // };
+=======
+    }
+
+    newCalculations = new Calculations(totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray)
+
+    if (
+      newCalculations.totalstrength <= newInput.bossstrength &&
+      newCalculations.totalvitality <= newInput.bossvitality &&
+      newCalculations.totalendurance <= newInput.bossendurance &&
+      newCalculations.totalleadership <= newInput.bossleadership &&
+      newCalculations.totalintellect <= newInput.bossintellect
+    ) {
+      class Elements {
+        constructor(lightn,darkn,earthn,watern,firen,airn,dualn,winchance,slursarry){
+          this.lightn = lightn
+          this.darkn = darkn
+          this.earthn = earthn
+          this.watern = watern
+          this.firen = firen
+          this.airn = airn
+          this.dualn = dualn
+          this.winchance = winchance
+          this.num = Math.random() * 100
+          this.slursarry = slursarry
+        }
+      }
+      let slursarry = [
+        `\`\`${randomcard}\`\` took a heavy hit! Ouch!`,
+        `\`\`${randomcard}\`\` is leading the battle!`,
+        `\`\`${randomcard}\`\` isn't giving up!`,
+        `\`\`${bosscardname}\`\` deals a massive blow to \`\`${randomcard1}\`\`. That's going to hurt.`,
+        `The raid party is working well together!`,
+        `\`\`${randomcard}\`\` slips and falls over. Whoops!`,
+        `\`\`${bosscardname}\`\` prepares an attack! Look out!`,
+        `\`\`${bosscardname}\`\` is defending!`,
+        `\`\`${randomcard}\`\` missed their attack!`,
+        `\`\`${randomcard}\`\` is defending!`,
+        `That attack landed \`\`${randomcard}\`\`! Nice one!`,
+        `\`\`${bosscardname}\`\` is changing position!`,
+        `\`\`${randomcard}\`\` strikes!`,
+        `Who needs a plan when you got \`\`${randomcard}\`\`?!`,
+        `\`\`${bosscardname}\`\` stands their ground.`,
+`\`\`${randomcard}\`\` made a mistake. Sorry!`,
+        `A glancing blow \`\`${randomcard}\`\`!`,
+`Need some help? \`\`${randomcard}\`\` is here!`,
+        `\`\`${randomcard}\`\` is eager to get this over with.`,
+        `Oh no! \`\`${bosscardname}\`\` is powering up!`,
+        `Never gonna give \`\`${randomcard}\`\` up!`,
+        `\`\`${randomcard}\`\` is giving it all they got!`,
+        `\`\`${randomcard}\`\` takes guard against \`\`${bosscardname}\`\``,
+        `\`\`${randomcard}\`\` attempts to lead the next attack!`,
+`Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
+        `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
+      ]
+      let lightn = 0;
+      let darkn = 0;
+      let earthn = 0;
+      let watern = 0;
+      let firen = 0;
+      let airn = 0;
+      let dualn = 0;
+      var winchance = 80;
+
+      let newElements = new Elements(lightn,darkn,earthn,watern,firen,airn,dualn,winchance,slursarry)
+      newCalculations.elementarray.forEach(x => x == "Light" && lightn++);
+      newCalculations.elementarray.forEach(x => x == "Dark" && darkn++);
+      newCalculations.elementarray.forEach(x => x == "Earth" && earthn++);
+      newCalculations.elementarray.forEach(x => x == "Fire" && firen++);
+      newCalculations.elementarray.forEach(x => x == "Air" && airn++);
+      newCalculations.elementarray.forEach(x => x == "Dual" && dualn++);
+
+      if (newInput.bosselement === "Water") {
+        newElements.winchance = newElements.winchance + newElements.airn * 5;
+      }
+      if (newInput.bosselement === "Fire") {
+        newElements.winchance = newElements.winchance + newElements.watern * 5;
+      }
+      if (newInput.bosselement === "Earth") {
+        newElements.winchance = newElements.winchance + newElements.firen * 5;
+      }
+      if (newInput.bosselement === "Air") {
+        newElements.winchance = newElements.winchance + newElements.earthn * 5;
+      }
+
+      let randomcard
+      let randomcard1
+      let randomslur1
+      
+         randomcard =
+        cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
+         randomcard1 =
+        cardnamearray[Math.floor(Math.random() * cardnamearray.length)];
+         randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)];
+      
+
+      randomSelection(newCalculations.cardnamearray, newElements
+    
+    
+
+
+    }
+
+})
+
+
+}
+exports.help = {
+  name: "boss"
+};
+>>>>>>> 448a468bbc0ac5653bdb037652b6624516a4ff6e
