@@ -246,5 +246,4 @@ exports.help = {
   name: 'drop',
   
 };
-// then((sentMessage) =>
-// sentMessage.edit("Boop!"))
+
