@@ -10,6 +10,7 @@
 	"author": "ayezinzu@gmail.com",
 	"license": "ISC",
 	"dependencies": {
+		"canvas": "^2.6.1",
 		"discord-paginationembed": "^2.0.0",
 		"discord.js": "^12.2.0",
 		"dotenv": "^8.2.0",
