@@ -1,34 +1,28 @@
+require('dotenv').config();
+
 const Discord = require('discord.js');
-const { Client, MessageAttachment } = require('discord.js');
-const cooldowns = new Discord.Collection();
+const { MessageAttachment } = require('discord.js');
 const fs = require('fs');
 const Enmap = require('enmap');
+const mongoose = require('mongoose');
+const chunk = require('lodash.chunk');
+const _ = require('lodash');
+const MongoClient = require('mongodb').MongoClient;
 
 const Report = require('./models/report.js');
 const Addcard = require('./models/addcard.js');
-const MongoClient = require('mongodb').MongoClient;
 const Channel = require('./models/dropchannel.js');
+
 const used = new Map();
 const client = new Discord.Client();
-require('dotenv').config();
-const mongoose = require('mongoose');
-var chunk = require('lodash.chunk');
-var _ = require('lodash');
-const { random } = require('lodash');
 
-const config = {
-	token: process.env.TOKEN,
-	// owner: process.env.OWNER,
-	prefix: process.env.PREFIX
-};
+const cooldowns = new Discord.Collection();
 
-const prefix = config.prefix;
+const { prefix } = process.env;
 
 client.commands = new Enmap();
 
-client.on('ready', async () => {
-	console.log(`Logged in as ${client.user.tag}!`);
-});
+client.on('ready', async () => console.log(`Logged in as ${client.user.tag}!`));
 
 // [!!mute @User 12h Posting too many good memes]
 // 0        1     2      3     5   6    7   8
@@ -36,48 +30,49 @@ client.on('ready', async () => {
 let msgss = 0;
 
 client.on('message', async message => {
-	realMessage = message.content.toLowerCase();
 	if (message.author.bot) return;
+	realMessage = message.content.toLowerCase();
 
 	msgss++;
-
 	console.log(msgss);
-	let finalChannels = [];
+
+	const finalChannels = [];
 	const theChannel = await Channel.find();
-	theChannel.forEach((randomChannel, i) => {
-		let val = randomChannel.channel.substr(2, 18);
+	theChannel.forEach((randomChannel, _i) => {
+		const val = randomChannel.channel.substr(2, 18);
 		finalChannels.push(val);
 	});
 	console.log(finalChannels);
-	finalChannels.forEach((exactChannel, i) => {
+
+	finalChannels.forEach((exactChannel, _i) => {
 		setTimeout(() => {
 			if (msgss < 20) return;
 
 			msgss = 0;
 
 			if (realMessage.indexOf(prefix) === 0) return;
-			var cardname = '';
-			var imgurl = '';
-			var cardscore = '';
-			var cardtype = '';
-			var element = '';
-			var strength = 0;
-			var vitality = 0;
-			var endurance = 0;
-			var leadership = 0;
-			var intellect = 0;
-			var attachment2 = '';
-			var upgrade = 0;
-			var dust = 0;
-			var series = '';
-			var cardid = Math.random().toString(20).substr(2, 6);
+			let cardname = '';
+			let imgurl = '';
+			let cardscore = '';
+			let cardtype = '';
+			let element = '';
+			let strength = 0;
+			let vitality = 0;
+			let endurance = 0;
+			let leadership = 0;
+			let intellect = 0;
+			let attachment2 = '';
+			let upgrade = 0;
+			let dust = 0;
+			let series = '';
+			let cardid = Math.random().toString(20).substr(2, 6);
 			console.log(cardid);
-			var randomcard = Math.floor(Math.random() * 4);
+			let randomcard = Math.floor(Math.random() * 4);
 			const attachment1 = new MessageAttachment(`./card.png`);
 
 			Addcard.count().exec(function (err, count) {
 				// Get a random entry
-				var random123 = Math.floor(Math.random() * count);
+				let random123 = Math.floor(Math.random() * count);
 
 				// Again query all users but only fetch one offset by our random #
 				Addcard.findOne()
@@ -104,7 +99,7 @@ client.on('message', async message => {
 			});
 
 			const fighters = [];
-			var gucci = {
+			let gucci = {
 				timeout: 15000,
 				reason: 'myhomemyrules'
 			};
@@ -307,8 +302,8 @@ fs.readdir('./commands/', async (err, files) => {
 	if (err) return console.error;
 	files.forEach(file => {
 		if (!file.endsWith('.js')) return;
-		let props = require(`./commands/${file}`);
-		let cmdName = file.split('.')[0];
+		const props = require(`./commands/${file}`);
+		const cmdName = file.split('.')[0];
 		console.log(`Loaded command '${cmdName}'`);
 		client.commands.set(cmdName, props);
 	});
