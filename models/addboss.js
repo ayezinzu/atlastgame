@@ -1,29 +1,29 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://admin:admin@cluster0-hlj9n.mongodb.net/atlas?retryWrites=true&w=majority";
+const uri = 'mongodb+srv://admin:admin@cluster0-hlj9n.mongodb.net/atlas?retryWrites=true&w=majority';
 
 const client = new MongoClient(uri, { useNewUrlParser: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
+	const collection = client.db('test').collection('devices');
+	// perform actions on the collection object
+	client.close();
 });
 
 const reportSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
-  cardname: String,
-  cardid: String,
-  cardtype: String,
-  difficulty: Number,
-  imgurl: String,
-  strength: String,
-  leadership: String,
-  element: String,
-  vitality: String,
-  endurance: String,
-  intellect: String,
-  emoji : String,
-  series : String
+	_id: mongoose.Schema.Types.ObjectId,
+	cardname: String,
+	cardid: String,
+	cardtype: String,
+	difficulty: Number,
+	imgurl: String,
+	strength: String,
+	leadership: String,
+	element: String,
+	vitality: String,
+	endurance: String,
+	intellect: String,
+	emoji: String,
+	series: String
 });
 
-module.exports = mongoose.model("Addboss", reportSchema);
+module.exports = mongoose.model('Addboss', reportSchema);

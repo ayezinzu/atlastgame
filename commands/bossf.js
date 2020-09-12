@@ -30,9 +30,9 @@
 //           this.enteredcardtype = enteredcardtype
 //           this.enteredcardelement = enteredcardelement
 //         }
-         
+
 //     }
-      
+
 //   const addbosscount = await Addboss.countDocuments().exec(); // counting boss cards
 
 //   // Get a random entry
@@ -96,7 +96,7 @@
 //           break
 //         }
 //         else {
-//           poggers = 0 
+//           poggers = 0
 //         }
 //       }
 //       if(poggers === 0){
@@ -123,7 +123,6 @@
 // await wait(2000)
 // message.channel.send(`**Battle commenced !**`)
 
-
 // class Calculations {
 //     constructor (totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray) {
 //         this.totalstrength = totalstrength
@@ -140,14 +139,12 @@
 
 // for (itemone of newInput.cardsarray){
 
-
-
 //     let thisisthecard = itemone.cardid;
 //     let thisistheguy = await Report.findOne({
 //         userid: itemone.cardowner
 //       });
 //       for(item of thisistheguy.cardstats){
-            
+
 //             if (item.cardid === thisisthecard) {
 //             cardnamearray.push(item.cardname);
 //             cardtypearray.push(item.cardtype);
@@ -161,7 +158,7 @@
 //           }
 
 //       }
-      
+
 //     }
 
 //     newCalculations = new Calculations(totalstrength, totalvitality, totalendurance, totalleadership, totalintellect, elementarray, cardnamearray, cardtypearray, cardelementarray)
@@ -218,10 +215,6 @@
 //       }
 //       let randomcard
 
-
-
-
-
 //   function sendRandomSlur(cardnamearray) {
 //     randomcard = cardnamearray[Math.floor(Math.random() * cardnamearray.length)]
 //     let slursarry = [
@@ -252,25 +245,21 @@
 // `Who needs a plan when you got \`\`${randomcard}\`\` ?!`,
 //       `\`\`${randomcard}\`\` gets tripped up trying to dodge an attack. Be careful!`
 //     ]
-    
+
 //     randomslur1 = slursarry[Math.floor(Math.random() * slursarry.length)]
 //       message.channel.send(randomslur1)
-    
+
 //   }
 //   console.log([Math.floor(Math.random() * cardnamearray.length)])
 //   sendRandomSlur(newCalculations.cardnamearray)
-  
+
 //   await wait(2000)
 //   sendRandomSlur(newCalculations.cardnamearray)
 //   await wait(4000)
-  
-  
+
 //     }
 
-    
-
 // })
-
 
 // }
 // exports.help = {

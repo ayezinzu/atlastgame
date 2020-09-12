@@ -1,7 +1,5 @@
-exports.run = (client,message,args) => {
-
-};
+exports.run = (client, message, args) => {};
 
 exports.help = {
-  name: 'say'
+	name: 'say'
 };
