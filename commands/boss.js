@@ -10,7 +10,7 @@ let chunk = require("lodash.chunk");
 let _ = require("lodash");
 const Channel = require("../models/raidchannel.js");
 exports.run = async (client, message, args) => {
-  if(!message.member.permissions(`ADMINSTRATOR`)) return message.channel.send(`You don't have perms to do so.`);
+  if(!message.member.hasPermissions([`ADMINSTRATOR`])) return message.channel.send(`You don't have perms to do so.`);
   setInterval(async () => {
 
   setTimeout(() => {
