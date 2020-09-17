@@ -21,5 +21,8 @@
     "lodash.chunk": "^4.2.0",
     "mongoose": "^5.9.18",
     "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "prettier": "2.1.1"
   }
 }
