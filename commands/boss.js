@@ -10,10 +10,12 @@ let chunk = require("lodash.chunk");
 let _ = require("lodash");
 const Channel = require("../models/raidchannel.js");
 exports.run = async (client, message, args) => {
-  if(!message.member.permissions(`ADMINSTRATOR`)) return;
+  if(!message.member.permissions(`ADMINSTRATOR`)) return message.channel.send(`You don't have perms to do so.`);
   setInterval(() => {
 
-  
+  setTimeout(() => {
+    message.channel.send(`\`\`Prepare yourselves! A raid is set to begin in 5 minutes!\`\``)
+  }, 300000)
   let cardsarray = []; // this will contain cards of the participants
   let participants = []; // array of participants
   class Input {
@@ -568,7 +570,7 @@ exports.run = async (client, message, args) => {
       message.channel.send(lossEmbed);
     }
   });
-}, 3600000)
+}, 14100000)
 };
 exports.help = {
   name: "boss",
