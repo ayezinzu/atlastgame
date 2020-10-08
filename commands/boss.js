@@ -8,6 +8,7 @@ const Report = require("../models/report.js");
 const Pagination = require("discord-paginationembed");
 let chunk = require("lodash.chunk");
 let intervalId
+const wait = util.promisify(setTimeout);
 let _ = require("lodash");
 const Channel = require("../models/raidchannel.js");
 exports.run = async (client, message, args) => {
@@ -17,11 +18,13 @@ exports.run = async (client, message, args) => {
   }
   if(!message.member.hasPermission([`ADMINISTRATOR`])) return message.channel.send(`You don't have perms to do so.`);
   message.channel.send(`Boss raid spawn set !`)
- intervalId= setInterval(async () => {
+setInterval( async () => {
+console.log(`hey there`)
 
-  setTimeout(() => {
     message.channel.send(`\`\`Prepare yourselves! A raid is set to begin in 5 minutes!\`\``)
-  }, 3000)
+    await wait(300000)
+    
+  
   let cardsarray = []; // this will contain cards of the participants
   let participants = []; // array of participants
   class Input {
@@ -129,7 +132,7 @@ exports.run = async (client, message, args) => {
     }
   });
   collector.on("end", async (collected) => {
-    const wait = util.promisify(setTimeout);
+    
     let totalstrength = 0;
     let totalvitality = 0;
     let totalendurance = 0;
@@ -577,6 +580,7 @@ exports.run = async (client, message, args) => {
     }
   });
 }, 14100000)
+//14100000
 };
 exports.help = {
   name: "boss",
