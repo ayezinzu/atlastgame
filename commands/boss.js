@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
   }
   if(!message.member.hasPermission([`ADMINISTRATOR`])) return message.channel.send(`You don't have perms to do so.`);
   message.channel.send(`Boss raid spawn set !`)
-setInterval( async () => {
+  intervalId = setInterval( async () => {
 console.log(`hey there`)
 
     message.channel.send(`\`\`Prepare yourselves! A raid is set to begin in 5 minutes!\`\``)
